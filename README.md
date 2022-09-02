@@ -2,20 +2,20 @@
 "Continuous Integration with Jenkins" module: 
 
 2.1 "I Can Win": 
-- Install Jenkins
+- Install Jenkins.
 - Create a task which will perform the following:
-    Clone the project
-    Launch tests from the project in Java directory with the help of mvn test goal
+    - Clone the project.
+    - Launch tests from the project in Java directory with the help of mvn test goal
 - Set up build triggers so that the task is performed every 5 minutes
 
 2.2 "Bring It On":
-- Install Jenkins
+- Install Jenkins.
 - Create the task which will perform the following:
-    Clone the project
-    Launch tests from the project in Java directory with the help of mvn test goal
+    - Clone the project
+    - Launch tests from the project in Java directory with the help of mvn test goal
 - Set up build triggers:
-    Launch tests not later than 5 minutes after committing in git
-    Every workday at midnight
+    - Launch tests not later than 5 minutes after committing in git
+    - Every workday at midnight
 - Publish “Java\target\surefire-reports\com.github.vitalliuss.helloci.AppTest.txt” file as an artifact
 
 2.3 "Hurt Me Plenty":
