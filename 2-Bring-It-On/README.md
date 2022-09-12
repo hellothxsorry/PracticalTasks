@@ -9,7 +9,7 @@
   - Every workday at midnight
 - Publish “Java\target\surefire-reports\com.github.vitalliuss.helloci.AppTest.txt” file as an artifact
 
-![image](https://user-images.githubusercontent.com/50228202/189135282-f60b3ab5-55e7-43bb-b5c8-98d9b3d1dfcb.png)
+![image](https://user-images.githubusercontent.com/50228202/189601843-3fc5eba7-c9a6-483a-bb2b-ac2e9d7b72ad.png)
 <p align="center"><i>Creating a new job "Bring It On".</i></p>
 
 ![image](https://user-images.githubusercontent.com/50228202/189137805-c8d16985-619c-410b-9917-7bff0f80c27a.png)
