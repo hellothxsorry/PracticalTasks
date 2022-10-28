@@ -110,7 +110,7 @@ namespace PracticalTasks
                                                                     new XElement("PermissibleLoad", veh.chassis.PermissibleLoad),
                                                                     new XElement("GearsNum", veh.transmission.NumberOfGears),
                                                                     new XElement("TransmissionManufacturer", veh.transmission.Manufacturer))),
-                                                new XElement("Automatic",
+                                                new XElement("CVT",
                                                         from veh in transmissionManual
                                                         select new XElement("Vehicle",
                                                                     new XElement("Name", veh.name),
