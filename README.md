@@ -1,4 +1,4 @@
-# PracticalTasks
+# Practical Task 5
 "Interfaces and Abstract Classes" module: 
 
 Create a "Coordinate" structure that defines the 3D coordinates of some object (positive numbers). Define an IFlyable interface with the FlyTo (new point), GetFlyTime (new point) methods. Create classes "Bird", "Airplane", "Drone", which implement this interface and contain at least the field "Current position".
