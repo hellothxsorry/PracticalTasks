@@ -1,5 +1,4 @@
-# Practical Task 2
-"Continuous Integration with Jenkins" module: 
+# "Continuous Integration with Jenkins" module: 
 
 2.1 "I Can Win": 
 - Install Jenkins.
