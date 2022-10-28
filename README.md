@@ -32,3 +32,6 @@ This task is based on Hurt Me Plenty task:
 
 2.5 "Nightmare!":
 Perform all the previous tasks using node on Linux.
+
+Was not able to complete the last part of 2.4 "Hardcore" since the task requires to use MVN Cobertura and an alternative for C# was not found.
+The entire 2.5 "Nightmare!" is also not completed due to lack of information about compatible plugins for Linux version of Jenkins.
