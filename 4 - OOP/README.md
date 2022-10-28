@@ -1,5 +1,4 @@
-# Practical Task 4
-"OOP" module: 
+# "OOP" module: 
 
 Create a program which manages a car park. For this purpose, you need to implement the next entities as separate classes: "Engine" (includes the next fields: power, volume, type, serial number), "Chassis" (wheels number, number, permissible load), "Transmission" (type, number of gears, manufacturer).
 
