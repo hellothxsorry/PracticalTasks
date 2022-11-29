@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Chassis
+    public class Chassis
     {
         public int WheelsNumber;
         public string? VINumber;

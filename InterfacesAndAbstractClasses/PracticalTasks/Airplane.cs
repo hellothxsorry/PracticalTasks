@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Airplane : IFlyable
+    public class Airplane : IFlyable
     {
         public bool isAnyRestriction { get; set; }
-
-        //Accroding to the restrictions from the task: the aircraft increases speed by 10 km/h every 10 km of flight from an initial speed of 200 km/h
         public int speed { get; set; } = 200;
         public float startPosX { get; set; }
         public float startPosY { get; set; }
@@ -21,7 +19,6 @@ namespace PracticalTasks
             double distance = Math.Pow((Math.Pow(x - startPosX, 2) + Math.Pow(y - startPosY, 2) +
                 Math.Pow(z - startPosZ, 2) * 1.0), 0.5);
 
-            //Limit the maximum distance which the aircraft can cover to 15,000 km
             if (distance > 15000)
             {
                 Console.WriteLine("The distance between starting and destination positions is too large: " +
@@ -35,7 +32,6 @@ namespace PracticalTasks
 
         public double GetFlyTime(double distance)
         {
-            //Define how many times the airplane would increase its speed to cover the determined distance
             int speedBoostNumber = (int)(distance / 10);
 
             double flightTime = 0;
@@ -44,7 +40,6 @@ namespace PracticalTasks
             {
                 for (int j = speed + 10, k = 0; k < speedBoostNumber; j += 10, k++)
                 {
-                    //Limit the airplane's maximum speed to 1000 km/h
                     if (j > 1000)
                     {
                         j = 1000;

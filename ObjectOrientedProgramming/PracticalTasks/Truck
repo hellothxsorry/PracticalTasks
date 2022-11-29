@@ -1,0 +1,46 @@
+namespace PracticalTasks
+{
+    public class Truck: Vehicle
+    {
+        private BusTypes _busType;
+        private int _numOfPassSeats;
+        
+        private string _name;
+        private Engine _engine;
+        private Chassis _chassis;
+        private Transmission _transmission;      
+        
+        public override string VehicleName
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        public override string VehicleEngine
+        {
+            get => _engine;
+            set => _engine = value;
+        }
+
+        public override string VehicleChassis
+        {
+            get => _chassis;
+            set => _chassis = value;
+        }
+
+        public override string VehicleTransmission
+        {
+            get => _transmission;
+            set => _transmission = value;
+        }
+
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
+        Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
+
+        public override void InformationOutput()
+        {
+            Console.WriteLine("debug")
+        }
+    }
+}

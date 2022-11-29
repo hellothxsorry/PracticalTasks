@@ -1,0 +1,66 @@
+using System;
+using System.Diagnostics;
+
+namespace PracticalTasks
+{
+    public class Bus: Vehicle
+    {
+        private BusTypes _busType;
+        private int _numOfPassSeats;
+        
+        private string _name;
+        private Engine _engine;
+        private Chassis _chassis;
+        private Transmission _transmission;      
+        
+        public override string VehicleName
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        public override string VehicleEngine
+        {
+            get => _engine;
+            set => _engine = value;
+        }
+
+        public override string VehicleChassis
+        {
+            get => _chassis;
+            set => _chassis = value;
+        }
+
+        public override string VehicleTransmission
+        {
+            get => _transmission;
+            set => _transmission = value;
+        }
+
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
+        Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
+        Debug.Assert(_numOfPassSeats < 10, "Bus cannot have less than ten seats.");
+
+        public Bus(string _name, BusTypes _busType, int _numOfPassSeats,
+            Engine _engine, Chassis _chassis, Transmission _transmission) { }
+
+        public override void InformationOutput()
+        {
+            Console.WriteLine($"Type of vehicle: {_name} | Bus type: {_busType} | " +
+                $"Number of passenger seats: {_numOfPassSeats}\nEngine power: {_engine.Power} horsepower | " +
+                $"Engine volume: {_engine.Volume}L | Engine type: {_engine.Type} | Engine serial number: " +
+                $"{_engine.SerialNumber} \n Number of wheels: {_chassis.WheelsNumber} | " +
+                $"The VIN (Vehicle Identification Number): {_chassis.VINumber} | Loading capacity: " +
+                $"{_chassis.PermissibleLoad} kg \n Transmission type: {_transmission.Type} | Number of gears: " +
+                $"{_transmission.NumberOfGears} | Transmission manufacturer: {_transmission.Manufacturer} \n");
+        }
+    }
+
+    enum BusTypes
+    {
+        School,
+        Public,
+        Tourist
+    }
+}

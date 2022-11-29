@@ -1,0 +1,59 @@
+namespace PracticalTasks
+{
+    public class PassengerCar: Vehicle
+    {
+        private int _distributorCode;
+        private double _maxSpeed;
+        private string _supplier;
+
+        private string _name;
+        private Engine _engine;
+        private Chassis _chassis;
+        private Transmission _transmission;      
+        
+        public override string VehicleName
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        public override string VehicleEngine
+        {
+            get => _engine;
+            set => _engine = value;
+        }
+
+        public override string VehicleChassis
+        {
+            get => _chassis;
+            set => _chassis = value;
+        }
+
+        public override string VehicleTransmission
+        {
+            get => _transmission;
+            set => _transmission = value;
+        }
+
+        Debug.Assert(_distributorCode > 0, "Distributor code cannot have a negative number.");
+        Debug.Assert(_maxSpeed > 60, "Maximum speed cannot be less than sixty km per hour.");
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
+        Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
+
+        public PassengerCar(string _name, int _distributorCode, string _supplier, 
+            double _maxSpeed, Engine _engine, Chassis _chassis, Transmission _transmission) { }
+
+        public override void InformationOutput()
+        {
+            Console.WriteLine($"Type of vehicle: {_name} | Distributor code: {_distributorCode} | " +
+                $"Supplier: {_supplier}\nEngine power: {_engine.Power} horsepower | " +
+                $"Maximum speed: {_maxSpeed} km/h | Engine volume: {_engine.Volume}L\n" +
+                $"Engine type: {_engine.Type} | Engine serial number: {_engine.SerialNumber}\n" +
+                $"Number of wheels: {_chassis.WheelsNumber} | The VIN (Vehicle Identification Number): " +
+                $"{_chassis.VINumber} | Loading capacity: {_chassis.PermissibleLoad} kg\n" +
+                $"Transmission type: {_transmission.Type} | Number of gears: {_transmission.NumberOfGears} " +
+                $"| Transmission manufacturer: {_transmission.Manufacturer}\n");
+        }
+    }    
+}

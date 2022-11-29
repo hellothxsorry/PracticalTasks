@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Transmission
+    public class Transmission
     {
-        public string? Type;
-        public int? NumberOfGears;
-        public string? Manufacturer;
+        public string Type;
+        public int NumberOfGears;
+        public string Manufacturer;
 
-        public Transmission(string? type, int? numberOfGears, string? manufacturer)
+        public Transmission(string type, int numberOfGears, string manufacturer)
         {
             Type = type;
             NumberOfGears = numberOfGears;
