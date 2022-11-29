@@ -33,19 +33,22 @@
             Chassis scooterChassis = new Chassis(wheelsNumber: 2, vINumber: "BB9ZQ00C91Y257233", permissibleLoad: 100);                       
             Transmission scooterTransmission = new Transmission(type:"CVT", numberOfGears:0, manufacturer: "Aeon");
 
-            Vehicle scooter = new Vehicle("Scooter", scooterEngine, scooterChassis, scooterTransmission);
-            #endregion
+            List<Vehicle> vehicles = new List<Vehicle>
+            {
+                new PassengerCar("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
+                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
+                new Bus("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
+                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
+                new Truck("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
+                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
+                new Scooter("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
+                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner"))
+            }
 
-            public Vehicle(string name, Engine engine, Chassis chassis, Transmission transmission)
-        {
-            VehicleName = name;
-            Console.WriteLine($"Type of vehicle: {name} \n Engine power: {engine.Power} horsepower | " +
-                $"Engine volume: {engine.Volume}L | Engine type: {engine.Type} | Engine serial number: " +
-                $"{engine.SerialNumber} \n Number of wheels: {chassis.WheelsNumber} | " +
-                $"The VIN (Vehicle Identification Number): {chassis.VINumber} | Loading capacity: " +
-                $"{chassis.PermissibleLoad} kg \n Transmission type: {transmission.Type} | Number of gears: " +
-                $"{transmission.NumberOfGears} | Transmission manufacturer: {transmission.Manufacturer} \n");
-        }
+            foreach(v in vehicles)
+            {
+                v.InformationOutput();
+            }
         }
     }
 }

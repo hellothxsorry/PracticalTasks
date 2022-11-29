@@ -7,7 +7,7 @@ namespace PracticalTasks
     {
         private BusTypes _busType;
         private int _numOfPassSeats;
-        
+
         private string _name;
         private Engine _engine;
         private Chassis _chassis;
@@ -37,7 +37,7 @@ namespace PracticalTasks
             set => _transmission = value;
         }
 
-        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
         Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
         Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
         Debug.Assert(_numOfPassSeats < 10, "Bus cannot have less than ten seats.");

@@ -2,8 +2,8 @@ namespace PracticalTasks
 {
     public class Scooter: Vehicle
     {
-        private BusTypes _busType;
-        private int _numOfPassSeats;
+        private FuelType _fuelType;
+        private bool _hasCarriage;
 
         private string _name;
         private Engine _engine;
@@ -34,13 +34,28 @@ namespace PracticalTasks
             set => _transmission = value;
         }
 
-        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
         Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
         Debug.Assert(_chassis.WheelsNumber >= 2, "Bus cannot have less than two wheels.");
 
+        public Scooter(string _name, bool _hasCarriage, Engine _engine, FuelType _fuelType, 
+            Chassis _chassis, Transmission _transmission) { }
+
         public override void InformationOutput()
         {
-            Console.WriteLine("debug")
+            Console.WriteLine($"Type of vehicle: {_name} | Includes carriage: {_hasCarriage} | " +
+                $"Number of passenger seats: {_numOfPassSeats}\nEngine power: {_engine.Power} horsepower | " +
+                $"Engine volume: {_engine.Volume}L | Fuel type: {_fuelType}\n Engine type: {_engine.Type} " +
+                $"| Engine serial number: {_engine.SerialNumber} \n Number of wheels: {_chassis.WheelsNumber} | " +
+                $"The VIN (Vehicle Identification Number): {_chassis.VINumber} | Loading capacity: " +
+                $"{_chassis.PermissibleLoad} kg \n Transmission type: {_transmission.Type} | Number of gears: " +
+                $"{_transmission.NumberOfGears} | Transmission manufacturer: {_transmission.Manufacturer} \n");
         }
+    }
+
+    enum FuelType
+    {
+        Gas,
+        Electricity
     }
 }

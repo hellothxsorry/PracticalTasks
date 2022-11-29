@@ -35,9 +35,9 @@ namespace PracticalTasks
             set => _transmission = value;
         }
 
-        Debug.Assert(_distributorCode > 0, "Distributor code cannot have a negative number.");
+        Debug.Assert(_distributorCode > 0, "Distributor code cannot have a negative number nor zero.");
         Debug.Assert(_maxSpeed > 60, "Maximum speed cannot be less than sixty km per hour.");
-        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative.");
+        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor being equal to zero.");
         Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
         Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
 
