@@ -43,13 +43,10 @@ namespace PracticalTasks
             };
 
             #region Requirements from the task
-            //All information about all vehicles an engine capacity of which is more than 1.5 liters;
             var engineCapacity = vehicles.Where(x => x.engine.Volume > 1.5).Select(x => x);
 
-            //Engine type, serial number and power rating for all buses and trucks;
             var allHeavy = vehicles.Where(x => x.type == VehicleTypes.Truck || x.type == VehicleTypes.Bus).Select(x => x);
 
-            //All information about all vehicles, grouped by transmission type.
             var transmissionManual = vehicles.Where(x => x.transmission.Type == "Manual").Select(x => x);
             var transmissionAutomatic = vehicles.Where(x => x.transmission.Type == "Automatic").Select(x => x);
             var transmissionCvt = vehicles.Where(x => x.transmission.Type == "CVT").Select(x => x);

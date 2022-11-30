@@ -4,48 +4,19 @@
     {
         static void Main(string[] args)
         {
-            #region Passenger Car
-            Engine passengerCarEngine = new Engine(power: 300, volume: 3.5, type: "V6", serial: "D100928E01");
-            Chassis passengerCarChassis = new Chassis(wheelsNumber:4, vINumber:"JT152EEA100302159", permissibleLoad:420);                       
-            Transmission passengerCarTransmission = new Transmission(type: "Automatic", numberOfGears:6, manufacturer: "Aisin-Warner");
-
-            Vehicle passengerCar = new Vehicle("Passenger Car", passengerCarEngine, passengerCarChassis, passengerCarTransmission);
-            #endregion
-
-            #region Truck
-            Engine truckEngine = new Engine(power: 450, volume: 5, type: "V8", serial: "580307R155355");
-            Chassis truckChassis = new Chassis(wheelsNumber: 4, vINumber: "JN3MS37A9PW202929", permissibleLoad: 1500);                     
-            Transmission truckTransmission = new Transmission(type:"Automatic", numberOfGears:10, manufacturer: "Ford Motor Company");
-
-            Vehicle truck = new Vehicle("Truck", truckEngine, truckChassis, truckTransmission);
-            #endregion
-
-            #region Bus
-            Engine busEngine = new Engine(power: 240, volume: 6.7, type: "Diesel", serial: "719179A333791");
-            Chassis busChassis = new Chassis(wheelsNumber: 4, vINumber: "CA5RT51R7OS313571", permissibleLoad: 16000);                        
-            Transmission busTransmission = new Transmission(type:"Automatic", numberOfGears:4, manufacturer:"Jasper");
-
-            Vehicle bus = new Vehicle("Bus", busEngine, busChassis, busTransmission);
-            #endregion
-
-            #region Scooter
-            Engine scooterEngine = new Engine(power: 10, volume: 1.5, type: "4-stroke", serial: "005101AA03577");
-            Chassis scooterChassis = new Chassis(wheelsNumber: 2, vINumber: "BB9ZQ00C91Y257233", permissibleLoad: 100);                       
-            Transmission scooterTransmission = new Transmission(type:"CVT", numberOfGears:0, manufacturer: "Aeon");
-
-            List<Vehicle> vehicles = new List<Vehicle>
-            {
-                new PassengerCar("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
+            List <Vehicle> vehicles = new List<Vehicle>
+            {                
+                new PassengerCar("Ford", 72, "USA CC", 120, new Engine(-300, 3.5, "V6", "D100928E01"),
                     new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
-                new Bus("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
-                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
-                new Truck("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
-                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner")),
-                new Scooter("Ford", VehicleTypes.PassengerCar, new Engine(300, 3.5, "V6", "D100928E01"),
-                    new Chassis(4, "JT152EEA100302159", 420), new Transmission("Automatic", 6, "Aisin-Warner"))
-            }
+                new Bus("MCI", BusTypes.School, 72, new Engine(250, 7.0, "Diesel", "I5UUK571C0"),
+                    new Chassis(4, "OJ924UI0733Y7990K", 10000), new Transmission("Automatic", 4, "MCI")),
+                new Truck("Ram", "EuroT", 8, new Engine(700, 6.5, "V8", "CAF7770A07"),
+                    new Chassis(6, "RQ100BH9801AQ5C01", 2500), new Transmission("Automatic", 10, "ZF")),
+                new Scooter("Apollo", true, new Engine(8, 1.2, "4-stroke", "C00751370C10"), FuelType.Gas,
+                    new Chassis(2, "I542O9A5HH3330FW0", 150), new Transmission("CVT", 0, "Electro Innov"))
+            };
 
-            foreach(v in vehicles)
+            foreach (Vehicle v in vehicles)
             {
                 v.InformationOutput();
             }

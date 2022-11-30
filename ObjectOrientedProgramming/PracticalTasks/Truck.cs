@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace PracticalTasks
 {
     public class Truck: Vehicle
@@ -16,34 +18,42 @@ namespace PracticalTasks
             set => _name = value;
         }
 
-        public override string VehicleEngine
+        public override Engine VehicleEngine
         {
             get => _engine;
             set => _engine = value;
         }
 
-        public override string VehicleChassis
+        public override Chassis VehicleChassis
         {
             get => _chassis;
             set => _chassis = value;
         }
 
-        public override string VehicleTransmission
+        public override Transmission VehicleTransmission
         {
             get => _transmission;
             set => _transmission = value;
+        }        
+
+        public Truck(string name, string logisticsCompanyName, double trailerLength,
+            Engine engine, Chassis chassis, Transmission transmission) 
+        { 
+            _name = name;
+            _logisticsCompanyName = logisticsCompanyName;
+            _trailerLength = trailerLength;
+            _engine = engine;
+            _chassis = chassis;
+            _transmission = transmission;
         }
-
-        Debug.Assert(_trailerLength > 0, "Trailer length cannot be zero nor negative.")
-        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
-        Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
-        Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
-
-        public Truck(string _name, string _logisticsCompanyName, double _trailerLength,
-            Engine _engine, Chassis _chassis, Transmission _transmission) { }
 
         public override void InformationOutput()
         {
+            Debug.Assert(_trailerLength > 0, "Trailer length cannot be zero nor negative.");
+            Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
+            Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
+            Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
+
             Console.WriteLine($"Type of vehicle: {_name} | Logistics company: {_logisticsCompanyName} | " +
                 $"Trailer length: {_trailerLength} meters\nEngine power: {_engine.Power} horsepower | " +
                 $"Engine volume: {_engine.Volume}L | Engine type: {_engine.Type} | Engine serial number: " +

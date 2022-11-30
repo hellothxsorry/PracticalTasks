@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 
 namespace PracticalTasks
@@ -19,34 +18,42 @@ namespace PracticalTasks
             set => _name = value;
         }
 
-        public override string VehicleEngine
+        public override Engine VehicleEngine
         {
             get => _engine;
             set => _engine = value;
         }
 
-        public override string VehicleChassis
+        public override Chassis VehicleChassis
         {
             get => _chassis;
             set => _chassis = value;
         }
 
-        public override string VehicleTransmission
+        public override Transmission VehicleTransmission
         {
             get => _transmission;
             set => _transmission = value;
+        }        
+
+        public Bus(string name, BusTypes busType, int numOfPassSeats,
+            Engine engine, Chassis chassis, Transmission transmission) 
+        {
+            _name = name;
+            _busType = busType;
+            _numOfPassSeats = numOfPassSeats;
+            _engine = engine;
+            _chassis = chassis;
+            _transmission = transmission;
         }
-
-        Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
-        Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
-        Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
-        Debug.Assert(_numOfPassSeats < 10, "Bus cannot have less than ten seats.");
-
-        public Bus(string _name, BusTypes _busType, int _numOfPassSeats,
-            Engine _engine, Chassis _chassis, Transmission _transmission) { }
 
         public override void InformationOutput()
         {
+            Debug.Assert(_engine.Power > 0, "Engine power cannot be negative nor zero.");
+            Debug.Assert(_engine.Volume > 0, "Engine volume must be a positive number.");
+            Debug.Assert(_chassis.WheelsNumber >= 4, "Bus cannot have less than four wheels.");
+            Debug.Assert(_numOfPassSeats >= 10, "Bus cannot have less than ten seats.");
+
             Console.WriteLine($"Type of vehicle: {_name} | Bus type: {_busType} | " +
                 $"Number of passenger seats: {_numOfPassSeats}\nEngine power: {_engine.Power} horsepower | " +
                 $"Engine volume: {_engine.Volume}L | Engine type: {_engine.Type} | Engine serial number: " +
@@ -57,7 +64,7 @@ namespace PracticalTasks
         }
     }
 
-    enum BusTypes
+    public enum BusTypes
     {
         School,
         Public,
