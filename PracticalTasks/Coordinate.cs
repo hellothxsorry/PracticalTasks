@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    struct Coordinate
+    public struct Coordinate
     {
         private double X { get; set; }
         private double Y { get; set; }
@@ -14,7 +14,6 @@ namespace PracticalTasks
 
         public void CurrentPos(IFlyable flyingObj)
         {
-            //Generate some random coordinates (x,y,z) and set them as a starting position for the flying object
             Random rng = new Random();
             X = (rng.NextDouble() * 100);
             flyingObj.startPosX = Convert.ToSingle(X);
