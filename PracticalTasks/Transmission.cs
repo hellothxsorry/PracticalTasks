@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Transmission
+    public class Transmission
     {
         public string? Type;
         public int? NumberOfGears;
