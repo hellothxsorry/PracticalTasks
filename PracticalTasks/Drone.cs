@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Drone : IFlyable
+    public class Drone : IFlyable
     {
         public bool isAnyRestriction { get; set; }
         public int speed { get; set; } = 200;
@@ -17,16 +17,11 @@ namespace PracticalTasks
         double distance;
         double flightTime;
                 
-        //1 min hovering every 10 min
-        //Travel time = distance / speed
-        //Additional time = travel time / 10
-        //Time of flight = distance / speed + additional time 
         public double FlyTo(float x, float y, float z)
         {
             double distance = Math.Pow((Math.Pow(x - startPosX, 2) + Math.Pow(y - startPosY, 2) +
                 Math.Pow(z - startPosZ, 2) * 1.0), 0.5);
 
-            //Limit the maximum distance: the drone is capable to cover up to 200 km
             if (distance > 200)
             {
                 Console.WriteLine("The distance between starting and destination positions is too large: " +
