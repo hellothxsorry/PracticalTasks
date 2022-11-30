@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal interface IFlyable
+    public interface IFlyable
     {
         bool isAnyRestriction { get; set;  }
         int speed { get; set; }
