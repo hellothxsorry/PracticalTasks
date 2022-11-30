@@ -122,15 +122,11 @@ namespace PracticalTasks
                                                                     new XElement("GearsNum", veh.transmission.NumberOfGears),
                                                                     new XElement("TransmissionManufacturer", veh.transmission.Manufacturer))));
 
-            engineVolumeData.Save("D:\\Tasks\\EngineVolumesFiltered.xml");
-            heavyVehicleData.Save("D:\\Tasks\\HeavyVehiclesFiltered.xml");
-            transmissionGroupData.Save("D:\\Tasks\\TransmissionGroupsFiltered.xml");
+            engineVolumeData.Save(@"..\EngineVolumesFiltered.xml");
+            heavyVehicleData.Save(@"..\HeavyVehiclesFiltered.xml");
+            transmissionGroupData.Save(@"..\TransmissionGroupsFiltered.xml");      
 
-            Console.WriteLine("The XML files are created!");
-
-            //File.WriteAllText(@"Path", engineVolumeData.ToString());
-            //File.WriteAllText(@"Path", heavyVehicleData.ToString());
-            //File.WriteAllText(@"Path", transmissionGroupData.ToString());               
+            Console.WriteLine("The XML files are created!");         
         }
     }
 }
