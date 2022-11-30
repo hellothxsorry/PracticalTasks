@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    internal class Engine
+    public class Engine
     {
         public int Power;
         public double Volume;
