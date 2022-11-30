@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace PracticalTasks
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -43,13 +43,10 @@ namespace PracticalTasks
             };
 
             #region Requirements from the task
-            //All information about all vehicles an engine capacity of which is more than 1.5 liters;
             var engineCapacity = vehicles.Where(x => x.engine.Volume > 1.5).Select(x => x);
 
-            //Engine type, serial number and power rating for all buses and trucks;
             var allHeavy = vehicles.Where(x => x.type == VehicleTypes.Truck || x.type == VehicleTypes.Bus).Select(x => x);
 
-            //All information about all vehicles, grouped by transmission type.
             var transmissionManual = vehicles.Where(x => x.transmission.Type == "Manual").Select(x => x);
             var transmissionAutomatic = vehicles.Where(x => x.transmission.Type == "Automatic").Select(x => x);
             var transmissionCvt = vehicles.Where(x => x.transmission.Type == "CVT").Select(x => x);
@@ -125,15 +122,11 @@ namespace PracticalTasks
                                                                     new XElement("GearsNum", veh.transmission.NumberOfGears),
                                                                     new XElement("TransmissionManufacturer", veh.transmission.Manufacturer))));
 
-            engineVolumeData.Save("D:\\Tasks\\EngineVolumesFiltered.xml");
-            heavyVehicleData.Save("D:\\Tasks\\HeavyVehiclesFiltered.xml");
-            transmissionGroupData.Save("D:\\Tasks\\TransmissionGroupsFiltered.xml");
+            engineVolumeData.Save(@"..\EngineVolumesFiltered.xml");
+            heavyVehicleData.Save(@"..\HeavyVehiclesFiltered.xml");
+            transmissionGroupData.Save(@"..\TransmissionGroupsFiltered.xml");     
 
-            Console.WriteLine("The XML files are created!");
-
-            //File.WriteAllText(@"Path", engineVolumeData.ToString());
-            //File.WriteAllText(@"Path", heavyVehicleData.ToString());
-            //File.WriteAllText(@"Path", transmissionGroupData.ToString());               
+            Console.WriteLine("The XML files are created!");              
         }
     }
 }
