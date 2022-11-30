@@ -4,4 +4,4 @@ Create a program which manages a car park. For this purpose, you need to impleme
 
 Implement entities "Passenger car", "Truck", "Bus", "Scooter" using class described previously (distinguished by unique fields) and provide the output of complete information about objects of these types.
 
-![image](https://user-images.githubusercontent.com/50228202/193363713-95fd1788-ca27-4add-b437-a769b7015bfb.png)
+![image](https://user-images.githubusercontent.com/50228202/204703562-8d672ccc-98f6-4386-afa8-db9fc3f5c309.png)
