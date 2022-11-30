@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    class Vehicle
+    public class Vehicle
     {
         public string name { get; set; }
         public VehicleTypes type { get; set; }
@@ -24,7 +24,7 @@ namespace PracticalTasks
         }
     }
 
-    enum VehicleTypes
+    public enum VehicleTypes
     {
         PassengerCar,
         Truck,
