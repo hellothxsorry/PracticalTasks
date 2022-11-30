@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
-    class Vehicle
+    public abstract class Vehicle
     {
-        public string VehicleName;
+        public abstract string VehicleName { get; set; }
+        public abstract Engine VehicleEngine { get; set; }
+        public abstract Chassis VehicleChassis { get; set; }
+        public abstract Transmission VehicleTransmission { get; set; }
 
-        public Vehicle(string name, Engine engine, Chassis chassis, Transmission transmission)
-        {
-            VehicleName = name;
-            Console.WriteLine($"Type of vehicle: {name} \n Engine power: {engine.Power} horsepower | " +
-                $"Engine volume: {engine.Volume}L | Engine type: {engine.Type} | Engine serial number: " +
-                $"{engine.SerialNumber} \n Number of wheels: {chassis.WheelsNumber} | " +
-                $"The VIN (Vehicle Identification Number): {chassis.VINumber} | Loading capacity: " +
-                $"{chassis.PermissibleLoad} kg \n Transmission type: {transmission.Type} | Number of gears: " +
-                $"{transmission.NumberOfGears} | Transmission manufacturer: {transmission.Manufacturer} \n");
-        }
+        public abstract void InformationOutput();
     }
 }
