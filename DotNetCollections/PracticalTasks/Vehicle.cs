@@ -24,7 +24,7 @@ namespace PracticalTasks
         }
     }
 
-    enum VehicleTypes
+    public enum VehicleTypes
     {
         PassengerCar,
         Truck,
