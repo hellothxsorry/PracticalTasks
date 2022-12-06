@@ -4,23 +4,22 @@
     {
         static void Main(string[] args)
         {
-            startProc();
+            StartProcess();
         }
 
-        private static void startProc()
+        private static void StartProcess()
         {            
-            string[] numeralSys = {"Binary", "Ternary", "Quaternary", "Quinary", "Senary", "Septenary",
+            string[] numeralSystem = {"Binary", "Ternary", "Quaternary", "Quinary", "Senary", "Septenary",
                 "Octal", "Nonary", "Decimal", "Undecimal", "Duodecimal", "Tridecimal", "Tetradecimal",
                 "Pentadecimal", "Hexadecimal", "Heptadecimal", "Octodecimal", "Enneadecimal", "Vigesimal"};
-
-            string finalOutput = "";
-            int chosenSys = 0;
+            
+            int chosenSystem = 0;
 
             Console.WriteLine("Please enter any integer number as a decimal: ");
 
-            int getNum;
+            int getNumber;
 
-            while (!Int32.TryParse(Console.ReadLine(), out getNum))
+            while (!Int32.TryParse(Console.ReadLine(), out getNumber))
             {
                 Console.WriteLine("Invalid input. Please enter an integer number and try again.");
             }            
@@ -29,32 +28,32 @@
 
             for (int i = 0; i < 19; i++)
             {
-                Console.WriteLine((i + 2) + ". " + numeralSys[i]);
+                Console.WriteLine((i + 2) + ". " + numeralSystem[i]);
             }            
 
-            int getSys;
+            int getSystem;
 
-            while (!Int32.TryParse(Console.ReadLine(), out getSys) || getSys < 2 || getSys > 20)
+            while (!Int32.TryParse(Console.ReadLine(), out getSystem) || getSystem < 2 || getSystem > 20)
             {
                 Console.WriteLine("Invalid input. Please enter any integer number from 2 to 20: ");
             }
 
-            chosenSys = getSys - 2;    
+            chosenSystem = getSystem - 2;    
 
-            Console.WriteLine(Environment.NewLine + "Original input number: " + getNum);
-            Console.WriteLine(getNum + " in " + numeralSys[chosenSys] + " system equals to " + convertNum(getNum, getSys) + Environment.NewLine);   
+            Console.WriteLine($"\nOriginal input number: {getNumber}");
+            Console.WriteLine($"{getNumber} in {numeralSystem[chosenSystem]} system equals to {ConvertNumber(getNumber, getSystem)}\n");   
             
-            startProc();
+            StartProcess();
         }
 
-        private static string convertNum(int inputNum, int newBase)
+        private static string ConvertNumber(int inputNumber, int newBase)
         {
             string str = "";
 
-            while (inputNum > 0)
+            while (inputNumber > 0)
             {
-                str += returnValue(inputNum % newBase);
-                inputNum /= newBase;
+                str += ReturnValue(inputNumber % newBase);
+                inputNumber /= newBase;
             }
 
             char[] result = str.ToCharArray();
@@ -62,15 +61,15 @@
             return new string(result);
         }
 
-        private static char returnValue(int num)
+        private static char ReturnValue(int number)
         {
-            if (num >= 0 && num <= 9)
+            if (number >= 0 && number <= 9)
             {
-                return (char)(num + 48);
+                return (char)(number + 48);
             }
             else
             {
-                return (char)(num - 10 + 65);
+                return (char)(number - 10 + 65);
             }
         }
     }
