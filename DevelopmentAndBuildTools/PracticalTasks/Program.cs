@@ -2,41 +2,42 @@
 {
     public class Program
     {
-        static int maxUnequalChar(string str)
+        private static int MaxUnequalChar(string userString)
         {
-            int strLength = str.Length;
+            int stringLength = userString.Length;
             int result = 0;
 
-            for (int i = 0; i < strLength; i++)
+            for (int i = 0; i < stringLength; i++)
             {
-                bool[] checkedChar = new bool[256];
+                bool[] checkedChars = new bool[256];
 
-                for (int j = i; j < strLength; j++)
+                for (int j = i; j < stringLength; j++)
                 {
-                    if (checkedChar[str[j]] == true)
+                    if (checkedChars[userString[j]] == true)
                     {              
                         break;
                     }
                     else
                     {
                         result = Math.Max(result, j - i + 1);    
-                        checkedChar[str[j]] = true;
+                        checkedChars[userString[j]] = true;
                     }
                 }
-                checkedChar[str[i]] = false;
+                checkedChars[userString[i]] = false;
             }
             return result;
         }
 
         static void Main(string[] args)
-        {
+        {         
             Console.WriteLine("Please type a sequence of symbols...");
 
-            var getSequence = Convert.ToString(Console.ReadLine());
+            var getSequence = Convert.ToString(Console.ReadLine());            
 
-            int maxNum = maxUnequalChar(getSequence);
+            int maxNumber = MaxUnequalChar(getSequence);
 
-            Console.WriteLine("The maximum number of unequal consecutive characters is: " + maxNum);
+            Console.WriteLine($"The maximum number of unequal consecutive characters is: {maxNumber}");
         }        
+    }      
     }
 }
