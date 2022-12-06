@@ -10,12 +10,12 @@ namespace PracticalTasks
     {
         bool isAnyRestriction { get; set;  }
         int speed { get; set; }
-        float startPosX { get; set; }
-        float startPosY { get; set; }
-        float startPosZ { get; set; }
+        uint startPosX { get; set; }
+        uint startPosY { get; set; }
+        uint startPosZ { get; set; }
 
-        double FlyTo(float x, float y, float z);
+        public double FlyTo(uint x, uint y, uint z);
 
-        double GetFlyTime(double distance);
+        public double GetFlyTime(double distance);
     }
 }

@@ -25,48 +25,49 @@
                 Console.WriteLine($"Must be a number from 1 to 3. Please try again.");
             }
 
-            ProcessSpecificObj(flyObjects[getFlyingObjID - 1]);            
+            ProcessSpecificObject(flyObjects[getFlyingObjID - 1]);            
         }
 
-        static void ProcessSpecificObj(IFlyable flyable)
+        static void ProcessSpecificObject(IFlyable flyable)
         {
             Coordinate coordinate = new Coordinate();
             string currentPos = "";
+            string wrongInputError = "N.B. only integer numbers are allowed. Please try again.";
             int speed = 0;
             bool isAnyRestriction = false;
-            float destX;
-            float destY;
-            float destZ;
+            uint destX;
+            uint destY;
+            uint destZ;
             double distance = 0;
             double flightTime = 0;
             Type objType = flyable.GetType();
 
-            coordinate.CurrentPos(flyable);
+            coordinate.SetCurrentRandomPosition(flyable);
             currentPos = $"Current position of the {objType.Name}: x = {flyable.startPosX} | " +
                 $"y = {flyable.startPosY} | z = {flyable.startPosZ}";
 
             Console.Clear();
             Console.WriteLine($"Please enter destination coordinates for {objType.Name} in (x, y, z) format." +
                 $"\nDestination position: x = [not assignet yet] | y = [not assignet yet] | z = [not assigned yet]\nPlease enter X coordinate first:");
-            while (!float.TryParse(Console.ReadLine(), out destX) && destX > 0)
+            while (!uint.TryParse(Console.ReadLine(), out destX))
             {
-                Console.WriteLine("N.B. only numbers are allowed. Please try again.");
+                Console.WriteLine(wrongInputError);
             }
 
             Console.Clear();
             Console.WriteLine($"{currentPos}\nDestination position: x = {destX} | y = [not assigned yet] | " +
                 $"z = [not assigned yet]\nNow please enter Y coordinate:");
-            while (!float.TryParse(Console.ReadLine(), out destY) && destY > 0)
+            while (!uint.TryParse(Console.ReadLine(), out destY))
             {
-                Console.WriteLine("N.B. only numbers are allowed. Please try again.");
+                Console.WriteLine(wrongInputError);
             }
 
             Console.Clear();
             Console.WriteLine($"{currentPos}\nDestination position: x = {destX} | y = {destY} | " +
                 $"z = [not assigned yet]\nFinally please enter Z coordinate:");
-            while (!float.TryParse(Console.ReadLine(), out destZ) && destZ > 0)
+            while (!uint.TryParse(Console.ReadLine(), out destZ))
             {
-                Console.WriteLine("N.B. only numbers are allowed. Please try again.");
+                Console.WriteLine(wrongInputError);
             }
 
             distance = flyable.FlyTo(destX, destY, destZ);

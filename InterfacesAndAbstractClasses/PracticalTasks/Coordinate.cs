@@ -8,22 +8,19 @@ namespace PracticalTasks
 {
     public struct Coordinate
     {
-        private double X { get; set; }
-        private double Y { get; set; }
-        private double Z { get; set; }
+        private uint X { get; set; }
+        private uint Y { get; set; }
+        private uint Z { get; set; }
 
-        public void CurrentPos(IFlyable flyingObj)
+        public void SetCurrentRandomPosition(IFlyable flyingObj)
         {
             Random rng = new Random();
-            X = (rng.NextDouble() * 100);
-            flyingObj.startPosX = Convert.ToSingle(X);
-            flyingObj.startPosX = (float)System.Math.Round(flyingObj.startPosX, 2);
-            Y = (rng.NextDouble() * 100);
-            flyingObj.startPosY = Convert.ToSingle(Y);
-            flyingObj.startPosY = (float)System.Math.Round(flyingObj.startPosY, 2);
-            Z = (rng.NextDouble() * 100);
-            flyingObj.startPosZ = Convert.ToSingle(Z);
-            flyingObj.startPosZ = (float)System.Math.Round(flyingObj.startPosZ, 2);
+            X = (uint)rng.Next(0, 100);
+            Y = (uint)rng.Next(0, 100);
+            Z = (uint)rng.Next(0, 100);
+            flyingObj.startPosX = X;
+            flyingObj.startPosY = Y;
+            flyingObj.startPosZ = Z;
         }
     }
 }

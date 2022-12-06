@@ -10,18 +10,16 @@ namespace PracticalTasks
     {
         public bool isAnyRestriction { get; set; }
         public int speed { get; set; }
-        public float startPosX { get; set; }
-        public float startPosY { get; set; }
-        public float startPosZ { get; set; }
+        public uint startPosX { get; set; }
+        public uint startPosY { get; set; }
+        public uint startPosZ { get; set; }
 
-        public double FlyTo(float x, float y, float z)
+        public double FlyTo(uint x, uint y, uint z)
         {
-            randomSpeed();
+            RandomSpeed();
 
-            double distance = Math.Pow((Math.Pow(x - startPosX, 2) + Math.Pow(y - startPosY, 2) +
-                Math.Pow(z - startPosZ, 2) * 1.0), 0.5);
-
-            //
+            double distance = Vector3.Distance(new Vector3(x, y, z), new Vector3(startPosX, startPosY, startPosZ));
+            
             if (distance > 160)
             {
                 Console.Write($"The distance between the starting and destination positions is {String.Format("{0:0.00}", distance)} km " +
@@ -48,7 +46,7 @@ namespace PracticalTasks
             return flightTime;
         }
 
-        private void randomSpeed()
+        private void RandomSpeed()
         {
             Random rng = new Random();
             speed = rng.Next(0, 20);
