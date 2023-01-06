@@ -26,6 +26,7 @@ namespace PracticalTasks
 
         static void Main(string[] args)
         {
+            vehicleList = new List<Vehicle>();
             LoadList();
             DisplayList();      
             GetBackToMenu();
@@ -39,7 +40,9 @@ namespace PracticalTasks
             }
             catch
             {
-                Console.WriteLine("There is no any existent list of vehicles or the list got corrupted. Please add at least one new vehicle and save the session to create a new list.");
+                Console.WriteLine("There is no any existent list of vehicles or the list got corrupted. Please add a new vehicle to create list.");
+                CollectDataForVehicle();
+                CreateNewVehicle();
                 GetBackToMenu();
             }            
         }
@@ -47,43 +50,51 @@ namespace PracticalTasks
         public static void DisplayList()
         {
             vehicleList = (
-                from v in loadedVehicleList.Root.Elements("Vehicle")
-                select new Vehicle
-                {
-                    name = (string)v.Element("Name"),
-                    type = (VehicleTypes)Enum.Parse(typeof(VehicleTypes), (string)v.Element("VehicleType")),
-                    engine = new Engine(
-                        (uint)v.Element("EnginePower"),
-                        (double)v.Element("EngineVolume"),
-                        (string)v.Element("EngineType"),
-                        (string)v.Element("EngineSerial")),
-                    chassis = new Chassis(
-                        (uint)v.Element("WheelsNum"),
-                        (string)v.Element("VIN"),
-                        (double)v.Element("PermissibleLoad")),
-                    transmission = new Transmission(
-                        (string)v.Element("TransmissionType"),
-                        (uint)v.Element("GearsNum"),
-                        (string)v.Element("TransmissionManufacturer"))
-                })
-                .ToList();
+                                from v in loadedVehicleList.Root.Elements("Vehicle")
+                                select new Vehicle
+                                {
+                                    name = (string)v.Element("Name"),
+                                    type = (VehicleTypes)Enum.Parse(typeof(VehicleTypes), (string)v.Element("VehicleType")),
+                                    engine = new Engine(
+                                    (uint)v.Element("EnginePower"),
+                                    (double)v.Element("EngineVolume"),
+                                    (string)v.Element("EngineType"),
+                                    (string)v.Element("EngineSerial")),
+                                    chassis = new Chassis(
+                                    (uint)v.Element("WheelsNum"),
+                                    (string)v.Element("VIN"),
+                                    (double)v.Element("PermissibleLoad")),
+                                    transmission = new Transmission(
+                                    (string)v.Element("TransmissionType"),
+                                    (uint)v.Element("GearsNum"),
+                                    (string)v.Element("TransmissionManufacturer"))
+                                })
+                                .ToList();
 
-            string centeredTitle = "List of Vehicles:";
-            Console.SetCursorPosition((Console.WindowWidth - centeredTitle.Length) / 2, Console.CursorTop);
-            Console.WriteLine(centeredTitle);
-
-            for (int i = 0; i < vehicleList.Count; i++)
+            if (vehicleList.Count == 0)
             {
-                Console.WriteLine(
-                    $"{i + 1}. Model: {vehicleList[i].name} | Type: {vehicleList[i].type}\n" +
-                    $"Engine power: {vehicleList[i].engine.Power} horsepower | E.volume: {vehicleList[i].engine.Volume}L | E.type: {vehicleList[i].engine.Type} | E.serial#: {vehicleList[i].engine.SerialNumber}\n" +
-                    $"Number of wheels: {vehicleList[i].chassis.WheelsNumber} | Chassis VIN: {vehicleList[i].chassis.VINumber} | Permissible load: {vehicleList[i].chassis.PermissibleLoad}KG\n" +
-                    $"Transmission type: {vehicleList[i].transmission.Type} | Number of gears: {vehicleList[i].transmission.NumberOfGears} | T.manufacturer: {vehicleList[i].transmission.Manufacturer}\n");
-                if (i == vehicleList.Count - 1)
-                {
-                    Console.Write("---------- ---------- ---------- ---------- ---------- ---------- ----------\n");
-                }
+                Console.WriteLine("List is empty. Please add a vehicle.\n");
+                GetBackToMenu();
             }
+            else
+            {
+                string centeredTitle = "List of Vehicles:";
+                Console.SetCursorPosition((Console.WindowWidth - centeredTitle.Length) / 2, Console.CursorTop);
+                Console.WriteLine(centeredTitle);
+
+                for (int i = 0; i < vehicleList.Count; i++)
+                {
+                    Console.WriteLine(
+                        $"{i + 1}. Model: {vehicleList[i].name} | Type: {vehicleList[i].type}\n" +
+                        $"Engine power: {vehicleList[i].engine.Power} horsepower | E.volume: {vehicleList[i].engine.Volume}L | E.type: {vehicleList[i].engine.Type} | E.serial#: {vehicleList[i].engine.SerialNumber}\n" +
+                        $"Number of wheels: {vehicleList[i].chassis.WheelsNumber} | Chassis VIN: {vehicleList[i].chassis.VINumber} | Permissible load: {vehicleList[i].chassis.PermissibleLoad}KG\n" +
+                        $"Transmission type: {vehicleList[i].transmission.Type} | Number of gears: {vehicleList[i].transmission.NumberOfGears} | T.manufacturer: {vehicleList[i].transmission.Manufacturer}\n");
+                    if (i == vehicleList.Count - 1)
+                    {
+                        Console.Write("---------- ---------- ---------- ---------- ---------- ---------- ----------\n");
+                    }
+                }
+            }                            
         }
 
         public static void GetBackToMenu()
@@ -138,6 +149,7 @@ namespace PracticalTasks
         public static void FilterList()
         {
             Console.Clear();
+            DisplayList();
             Console.WriteLine("1. HIDE VEHICLES WITH ENGINE VOLUME LESS THAN 1.5L\n" +
                 "2. SHOW ONLY HEAVY VEHICLES\n3. SHOW ONLY MANUAL TRANSMISSIONS\n4. SHOW ONLY AUTOMATIC TRANSMISSIONS\n5. SHOW ONLY CVT TRANSMISSIONS");
 
@@ -147,59 +159,66 @@ namespace PracticalTasks
                 Console.WriteLine("Please choose the preferable filter by typing a number from 1 to 4.");
             }
 
+            IEnumerable<Vehicle> bufferVehicleList;
+            var engineCapacity = vehicleList?.Where(x => x.engine.Volume > 1.5).Select(x => x);
+            var allHeavy = vehicleList?.Where(x => x.type == VehicleTypes.Truck || x.type == VehicleTypes.Bus).Select(x => x);
+            var transmissionManual = vehicleList?.Where(x => x.transmission.Type == "Manual").Select(x => x);
+            var transmissionAutomatic = vehicleList?.Where(x => x.transmission.Type == "Automatic").Select(x => x);
+            var transmissionCvt = vehicleList?.Where(x => x.transmission.Type == "CVT").Select(x => x);
+
+            switch (action)
+            {
+                case 1:
+                    bufferVehicleList = engineCapacity;
+                    break;
+                case 2:
+                    bufferVehicleList = allHeavy;
+                    break;
+                case 3:
+                    bufferVehicleList = transmissionManual;
+                    break;
+                case 4:
+                    bufferVehicleList = transmissionAutomatic;
+                    break;
+                default:
+                    bufferVehicleList = transmissionCvt;
+                    break;
+            }
+
             try
             {
-                IEnumerable<Vehicle> bufferVehicleList;
-                var engineCapacity = vehicleList?.Where(x => x.engine.Volume > 1.5).Select(x => x);
-                var allHeavy = vehicleList?.Where(x => x.type == VehicleTypes.Truck || x.type == VehicleTypes.Bus).Select(x => x);
-                var transmissionManual = vehicleList?.Where(x => x.transmission.Type == "Manual").Select(x => x);
-                var transmissionAutomatic = vehicleList?.Where(x => x.transmission.Type == "Automatic").Select(x => x);
-                var transmissionCvt = vehicleList?.Where(x => x.transmission.Type == "CVT").Select(x => x);
-
-                switch (action)
+                if (bufferVehicleList.Count() == 0)
                 {
-                    case 1:
-                        bufferVehicleList = engineCapacity;
-                        break;
-                    case 2:
-                        bufferVehicleList = allHeavy;
-                        break;
-                    case 3:
-                        bufferVehicleList = transmissionManual;
-                        break;
-                    case 4:
-                        bufferVehicleList = transmissionAutomatic;
-                        break;
-                    default:
-                        bufferVehicleList = transmissionCvt;
-                        break;
+                    Console.Clear();
+                    Console.WriteLine("Sorry, there is no vehicle matching the request.\n");
                 }
-
-                for (int i = 0; i < bufferVehicleList.Count(); i++)
+                else
                 {
-                    Console.WriteLine(
-                        $"{i + 1}. Model: {bufferVehicleList.ElementAt(i).name} | Type: {bufferVehicleList.ElementAt(i).type}\n" +
-                        $"Engine power: {bufferVehicleList.ElementAt(i).engine.Power} horsepower | E.volume: {bufferVehicleList.ElementAt(i).engine.Volume}L | E.type: {bufferVehicleList.ElementAt(i).engine.Type} | E.serial#: {bufferVehicleList.ElementAt(i).engine.SerialNumber}\n" +
-                        $"Number of wheels: {bufferVehicleList.ElementAt(i).chassis.WheelsNumber} | Chassis VIN: {bufferVehicleList.ElementAt(i).chassis.VINumber} | Permissible load: {bufferVehicleList.ElementAt(i).chassis.PermissibleLoad}KG\n" +
-                        $"Transmission type: {bufferVehicleList.ElementAt(i).transmission.Type} | Number of gears: {bufferVehicleList.ElementAt(i).transmission.NumberOfGears} | T.manufacturer: {bufferVehicleList.ElementAt(i).transmission.Manufacturer}\n");
-                    if (i == bufferVehicleList.Count() - 1)
+                    for (int i = 0; i < bufferVehicleList.Count(); i++)
                     {
-                        Console.Write("---------- ---------- ---------- ---------- ---------- ---------- ----------\n");
+                        Console.WriteLine(
+                            $"{i + 1}. Model: {bufferVehicleList.ElementAt(i).name} | Type: {bufferVehicleList.ElementAt(i).type}\n" +
+                            $"Engine power: {bufferVehicleList.ElementAt(i).engine.Power} horsepower | E.volume: {bufferVehicleList.ElementAt(i).engine.Volume}L | E.type: {bufferVehicleList.ElementAt(i).engine.Type} | E.serial#: {bufferVehicleList.ElementAt(i).engine.SerialNumber}\n" +
+                            $"Number of wheels: {bufferVehicleList.ElementAt(i).chassis.WheelsNumber} | Chassis VIN: {bufferVehicleList.ElementAt(i).chassis.VINumber} | Permissible load: {bufferVehicleList.ElementAt(i).chassis.PermissibleLoad}KG\n" +
+                            $"Transmission type: {bufferVehicleList.ElementAt(i).transmission.Type} | Number of gears: {bufferVehicleList.ElementAt(i).transmission.NumberOfGears} | T.manufacturer: {bufferVehicleList.ElementAt(i).transmission.Manufacturer}\n");
+                        if (i == bufferVehicleList.Count() - 1)
+                        {
+                            Console.Write("---------- ---------- ---------- ---------- ---------- ---------- ----------\n");
+                        }
                     }
-                }
+                }                
                 GetBackToMenu();
             }
             catch
             {
-                Console.WriteLine("\nSorry, there is no vehicle matching the request.\n");
+                Console.WriteLine("\nFiltering failed.\n");
                 GetBackToMenu();
             }
         }
 
         public static void CollectDataForVehicle()
         {     
-            Console.Clear();
-            Console.WriteLine("Please type a vehicle name:");
+            Console.WriteLine("\nPlease type a vehicle name:");
             bufferName = Console.ReadLine();
 
             Console.Clear();
@@ -348,6 +367,7 @@ namespace PracticalTasks
             else
             {
                 Console.Clear();
+                LoadList();
                 DisplayList();
                 GetBackToMenu();
             }
