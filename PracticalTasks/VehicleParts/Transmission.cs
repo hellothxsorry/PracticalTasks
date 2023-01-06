@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PracticalTasks
+namespace PracticalTasks.VehicleParts
 {
     public class Transmission
     {
         public string Type;
-        public int NumberOfGears;
+        public uint NumberOfGears;
         public string Manufacturer;
 
-        public Transmission(string type, int numberOfGears, string manufacturer)
+        public Transmission(string type, uint numberOfGears, string manufacturer)
         {
             Type = type;
             NumberOfGears = numberOfGears;
