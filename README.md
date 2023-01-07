@@ -1,5 +1,5 @@
 # Practical Task 7
-"Exceptions" module: 
+"Exceptions (.NET)" module: 
 
 Using the object model from the Collections tasks, extend the functionality by adding the following event handlings:
 
