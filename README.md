@@ -1,6 +1,14 @@
-# Practical Task 1
-"Development and Build Tools (ENG)" module:
+# Practical Task 8
+"Object Oriented Design Principles" module:
 
-Create a program that takes a sequence of symbols (string) as arguments from the command line and prints the maximum number of unequal consecutive characters per line to the console.
+Create a program that receives the following information about the car from the console: brand, model, quantity, cost of one unit. After entering the names of the cars, the program should ask the user for a command. When receiving commands, the program should display the following information:
 
-![image](https://user-images.githubusercontent.com/50228202/198503846-354b5ecd-0f80-4b19-8280-4183c7d74f73.png)
+- count types - the number of car brands;
+
+- count all - the total number of cars;
+
+- average price - the average cost of the car;
+
+- average price type - the average cost of cars for each brand (the brand is set by the user), for example, average price volvo
+
+- When the exit command is received, the program should exit. Use design patterns Singleton, Command
