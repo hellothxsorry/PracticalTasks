@@ -1,14 +1,10 @@
-# Practical Task 6
-".NET Collections" module: 
+# Practical Task 7
+"Exceptions (.NET)" module: 
 
-1. Fill in a single collection containing objects of the type "Truck", "Passenger car", "Bus", "Scooter" (from the previous OOP task) with different field values.
-2. Write the following information to the corresponding XML files:
-  - All information about all vehicles an engine capacity of which is more than 1.5 liters;
-  - Engine type, serial number and power rating for all buses and trucks;
-  - All information about all vehicles, grouped by transmission type.
+Using the object model from the Collections tasks, extend the functionality by adding the following event handlings:
 
-![image](https://user-images.githubusercontent.com/50228202/198503545-4cf73cdb-cc1c-47a2-abcb-e2d7195aba26.png)
-
-![image](https://user-images.githubusercontent.com/50228202/198503589-3924995f-f4a9-43a6-9ef5-d0186901154d.png)
-
-![image](https://user-images.githubusercontent.com/50228202/198503624-c0dcd3bb-c4ed-4f5a-922b-be7a0a4c7b63.png)
+- InitializationException - an exception if it is impossible to initialize a car model.
+- AddException - an exception if it is impossible to add a car model;
+- GetAutoByParameterException - for the GetAutoByParameter (string parameter, string value) method - an exception if it is impossible to find the model by the specified parameter. E.g. an attempt to find a car by a nonexistent parameter.
+- UpdateAutoException - an exception if it is impossible to replace a car. E.g. an attempt to replace the car with a non-existent identifier (ID).
+- RemoveAutoException - an exception if it is impossible to remove a car. E.g. an attempt to delete the car with a non-existent identifier (ID).

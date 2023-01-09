@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PracticalTasks
+namespace PracticalTasks.VehicleParts
 {
     public class Chassis
     {
-        public int WheelsNumber;
+        public uint WheelsNumber;
         public string VINumber;
         public double PermissibleLoad;
 
-        public Chassis(int wheelsNumber, string vINumber, double permissibleLoad)
+        public Chassis(uint wheelsNumber, string vINumber, double permissibleLoad)
         {
             WheelsNumber = wheelsNumber;
             VINumber = vINumber;

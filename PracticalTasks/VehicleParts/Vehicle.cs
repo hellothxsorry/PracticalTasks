@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PracticalTasks
+namespace PracticalTasks.VehicleParts
 {
+    [Serializable]
     public class Vehicle
     {
         public string name { get; set; }
@@ -13,6 +14,8 @@ namespace PracticalTasks
         public Engine engine { get; set; }
         public Chassis chassis { get; set; }
         public Transmission transmission { get; set; }
+
+        public Vehicle() { }
 
         public Vehicle(string name, VehicleTypes vtype, Engine engine, Chassis chassis, Transmission transmission)
         {
