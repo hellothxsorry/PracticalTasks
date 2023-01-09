@@ -1,42 +1,62 @@
-﻿namespace PracticalTasks
+﻿using PracticalTasks.Commands;
+using PracticalTasks.Receiver;
+
+namespace PracticalTasks
 {
     public class Program
     {
-        static int maxUnequalChar(string str)
-        {
-            int strLength = str.Length;
-            int result = 0;
-
-            for (int i = 0; i < strLength; i++)
-            {
-                bool[] checkedChar = new bool[256];
-
-                for (int j = i; j < strLength; j++)
-                {
-                    if (checkedChar[str[j]] == true)
-                    {              
-                        break;
-                    }
-                    else
-                    {
-                        result = Math.Max(result, j - i + 1);    
-                        checkedChar[str[j]] = true;
-                    }
-                }
-                checkedChar[str[i]] = false;
-            }
-            return result;
-        }
+        private static MenuOptions menu;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Please type a sequence of symbols...");
+            var carsRepository = SingletonRepository.Instance;
+            ICommand countBrandsCommand = new CountBrandsCommand(carsRepository);
+            ICommand countCarNumberCommand = new CountTotalCarNumberCommand(carsRepository);
+            ICommand displayAverageBrandPriceCommand = new DisplayAverageCarPriceByBrandCommand(carsRepository);
+            ICommand displayAverageCarPriceCommand = new DisplayAverageCarPriceCommand(carsRepository);
 
-            var getSequence = Convert.ToString(Console.ReadLine());
+            menu = new MenuOptions(countBrandsCommand, countCarNumberCommand, displayAverageBrandPriceCommand,
+                displayAverageCarPriceCommand, carsRepository);
 
-            int maxNum = maxUnequalChar(getSequence);
+            Console.WriteLine($"Currently the list of cars is empty. Please add some cars first by following the steps below.\n");
+            ShowMenuOptions();    
+        }
 
-            Console.WriteLine("The maximum number of unequal consecutive characters is: " + maxNum);
-        }        
+        private static void ShowMenuOptions()
+        {
+            uint getUserInput;
+
+            Console.WriteLine("1. ADD CAR\n2. SHOW NUMBER OF BRANDS\n3. SHOW TOTAL NUMBER OF ALL CARS" +
+                "\n4. SHOW AVERAGE COST OF EACH BRAND\n5. SHOW AVERAGE COST OF CAR\n6. CLOSE CONSOLE");
+            while (!UInt32.TryParse(Console.ReadLine(), out getUserInput) || getUserInput < 1 || getUserInput > 6)
+            {
+                Console.WriteLine($"Please enter a number from 1 to 6 to choose an option from the menu.");
+            }
+
+            Console.Clear();
+            menu.DisplayAll();
+            switch (getUserInput)
+            {
+                case 1:
+                    menu.ChooseCreateNewCar();
+                    break;
+                case 2:
+                    menu.ChooseBrandsNumber();
+                    break;
+                case 3:
+                    menu.ChooseTotalCarNumber();
+                    break;
+                case 4:
+                    menu.ChooseAverageBrandPrice();
+                    break;
+                case 5:
+                    menu.ChooseAverageCarPrice();
+                    break;
+                default:
+                    menu.ChooseExitConsoleApp();
+                    break;
+            }
+            ShowMenuOptions();
+        }
     }
 }
