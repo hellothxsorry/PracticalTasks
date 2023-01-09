@@ -13,8 +13,6 @@ namespace PracticalTasks
             GetBackToMenu(menu);
         }
 
-        
-
         public static void GetBackToMenu(MenuOptions menu)
         {
             Console.WriteLine("1. ADD VEHICLE\n2. EDIT VEHICLE\n3. DELETE VEHICLE\n4. FILTER LIST BY PARAMETER");
