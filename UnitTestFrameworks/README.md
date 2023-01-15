@@ -7,8 +7,6 @@ Modify the application from the first task of the Basic of .NET framework and C 
 
 For each method, write Unit Tests (use the NUnit, XUnit or MSTest framework is your choice; follow AAA and FIRST). When creating tests, pay special attention to equivalence classes.
 
-![image](https://user-images.githubusercontent.com/50228202/212547577-0ec9d0c9-d653-4453-992f-497d78aa844f.png)
-
 ![image](https://user-images.githubusercontent.com/50228202/212548533-87086726-3d51-43e7-b8ec-8b92cf1bc1b5.png)
 
 Equivalence classes for "Maximum unequal consecutive characters" tests:
@@ -40,3 +38,5 @@ Equivalence classes for "Maximum unequal consecutive characters" tests:
 - Class "Unique digits"
 - Class "Whitespace"
 - Class "Digits + special characters"
+
+![image](https://user-images.githubusercontent.com/50228202/212547577-0ec9d0c9-d653-4453-992f-497d78aa844f.png)
