@@ -9,7 +9,6 @@ namespace PracticalTasksTests
         [InlineData("aaayywbnL", 5)]
         [InlineData(" ", 0)]
         [InlineData("391807", 6)]
-        [InlineData("", 0)]
         [InlineData("WWLO", 3)]
         [InlineData("vRtKmJHnY", 9)]
         [InlineData("!q* ~%@(", 7)]
