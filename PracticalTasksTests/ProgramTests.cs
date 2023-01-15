@@ -22,7 +22,7 @@ namespace PracticalTasksTests
 
         [Theory]
         [InlineData("1e2r77u", 1)]
-        [InlineData("www0ww0w5ww", 3)]
+        [InlineData("wwwswwfwaww", 3)]
         [InlineData("KkKkt3t", 4)]
         [InlineData(" ", 0)]
         [InlineData("u uu", 2)]
