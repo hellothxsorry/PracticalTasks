@@ -1,6 +1,7 @@
-# Practical Task 1
-"Development and Build Tools (ENG)" module:
+# Practical Task 10
+"Locators (ENG)" module:
 
-Create a program that takes a sequence of symbols (string) as arguments from the command line and prints the maximum number of unequal consecutive characters per line to the console.
+- Practice looking for items (examples of items: Search field, 'All Sports' button, BBC icon, etc.) on https://www.bbc.com/sport or a similar service using different types of locators
+- Practice using XPath Axes using the same elements as an example
 
-![image](https://user-images.githubusercontent.com/50228202/198503846-354b5ecd-0f80-4b19-8280-4183c7d74f73.png)
+![image](https://user-images.githubusercontent.com/50228202/214877277-34a82052-4718-4901-97c7-ebc46d7aa876.png)![image](https://user-images.githubusercontent.com/50228202/214877277-34a82052-4718-4901-97c7-ebc46d7aa876.png)
