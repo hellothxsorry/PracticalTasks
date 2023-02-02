@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using PracticalTasks.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using PracticalTasks.Utils;
 using Xunit;
 
@@ -18,28 +17,33 @@ namespace PracticalTasks.Tests
         [Fact]
         public void CanLoginWithValidCredentials()
         {           
-            fixture.LoginPage.Login(TestData.Email1, TestData.Password1);
+            fixture.LoginPage.Login(TestData.Email1, TestData.Password);
+            fixture.Wait.Until(drv => fixture.Driver.Title.Contains(TestData.Email1));
 
-            Assert.True(fixture.Driver.Title.Contains("Free Email Addresses: Web based and secure Email - mail.com"), 
-                "mail.com - your personal Email and News");
+            Assert.Contains("mail.proton.me", fixture.Driver.Url);
         }        
 
         [Fact]
         public void ShouldNotLoginWithIncorrectCredentials()
         {
-            fixture.LoginPage.Login(TestData.Email1, TestData.WrongPassword);
+            IWebElement resultNotification = fixture.Driver.FindElement(By.
+                CssSelector(".notifications-container"));
 
-            IWebElement errorMessage = fixture.Driver.FindElement(By.CssSelector("div.text-wrapper h1"));
-            Assert.Equal("PLEASE TRY AGAIN!", errorMessage.Text);
+            fixture.LoginPage.Login(TestData.Email1, TestData.WrongPassword);  
+            fixture.Wait.Until(drv => resultNotification.Displayed);
+
+            Assert.Equal("Incorrect login credentials. Please try again", resultNotification.Text);
         }
 
         [Fact]
         public void ShouldNotLoginWithEmptyCredentials()
-        {
+        {      
             fixture.LoginPage.Login("", "");
 
-            IWebElement errorMessage = fixture.Driver.FindElement(By.CssSelector("div.text-wrapper h1"));
-            Assert.Equal("PLEASE TRY AGAIN!", errorMessage.Text);
+            fixture.Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("id-3")));
+            IWebElement warningNotification = fixture.Driver.FindElement(By.Id("id-3"));
+
+            Assert.Equal("This field is required", warningNotification.Text);
         }
     }
 }

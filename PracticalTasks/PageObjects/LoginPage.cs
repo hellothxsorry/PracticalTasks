@@ -12,22 +12,21 @@ namespace PracticalTasks.PageObjects
         public LoginPage(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            driver.Navigate().GoToUrl("https://www.mail.com");
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            driver.Navigate().GoToUrl("https://account.proton.me/login");
         }
 
-        private IWebElement txtUserEmail => driver.FindElement(By.Id("login-email"));
-        private IWebElement txtPassword => driver.FindElement(By.Id("login-password"));
-        private IWebElement btnLogin => driver.FindElement(By.Id("login-button"));
-        private IWebElement btnSubmit => driver.FindElement(By.CssSelector("button.login-submit"));
+        private IWebElement UserEmailInput => driver.FindElement(By.XPath("//input[@id='username']"));
+        private IWebElement PasswordInput => driver.FindElement(By.XPath("//input[@id='password']"));
+        private IWebElement SubmitButton => driver.FindElement(
+            By.XPath("//button[@class='button w100 button-large button-solid-norm mt1-5']"));
 
         public void Login(string email, string password)
         {
-            wait.Until(drv => btnLogin);
-            btnLogin.Click();
-            txtUserEmail.SendKeys(email);
-            txtPassword.SendKeys(password);
-            btnSubmit.Click();
+            wait.Until(drv => UserEmailInput.Displayed);
+            UserEmailInput.SendKeys(email);
+            PasswordInput.SendKeys(password);
+            SubmitButton.Click();
         }
     }    
 }

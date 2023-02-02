@@ -1,8 +1,7 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using Xunit;
-using PracticalTasks.PageObjects;
+﻿using Xunit;
+using OpenQA.Selenium;
 using PracticalTasks.Utils;
+using SeleniumExtras.WaitHelpers;
 
 namespace PracticalTasks.Tests
 {
@@ -18,20 +17,31 @@ namespace PracticalTasks.Tests
         [Fact]
         public void CanSendMail()
         {
-            fixture.LoginPage.Login(TestData.Email1, TestData.Password1);
+            fixture.LoginPage.Login(TestData.Email1, TestData.Password);
             fixture.MailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
+            
+            IWebElement successNotification = fixture.Driver.FindElement(By.
+                XPath("//span[.='Message sent.']"));
+
+            Assert.Equal("Message sent.", successNotification.Text);
+        }
+
+        [Fact]
+        public void CanVerifyUnreadMail()
+        {
+            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
+            string result = fixture.MailboxPage.CheckUnreadEmailSenderName();
+
+            Assert.Equal(TestData.Username1, result);
         }
 
         [Fact]
         public void CanReadMail()
         {
+            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
+            string result = fixture.MailboxPage.ReadRecentEmailGetMessage();
 
-        }
-
-        [Fact]
-        public void CanCheckUnreadMail()
-        {
-
-        }        
+            Assert.Contains(TestData.EmailBodyContent, result);
+        }           
     }
 }
