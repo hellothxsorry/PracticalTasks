@@ -42,8 +42,6 @@ namespace PracticalTasks.Tests
             fixture.LoginPage.Login(TestData.Email1, TestData.Password);
             fixture.Wait.Until(ExpectedConditions.ElementIsVisible(
                 By.XPath(incomingMailParsedSubject)));
-            /*fixture.Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(
-                By.CssSelector(recentMailSubject), TestData.Subject1));*/
             string newName = fixture.MailboxPage.ReadRecentEmailGetMessage();
             fixture.ProfilePage.ChangeName(newName);
             string result = fixture.ProfilePage.GetCurrentName();
