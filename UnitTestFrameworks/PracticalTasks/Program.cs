@@ -51,7 +51,6 @@
                     result = currentCount;
                 }
             }
-
             return result;
         }
 
@@ -76,7 +75,6 @@
                     result = currentCount;
                 }
             }
-
             return result;
         }
 
