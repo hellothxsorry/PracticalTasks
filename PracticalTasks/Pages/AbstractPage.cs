@@ -17,6 +17,13 @@ namespace PracticalTasks.Pages
             PageFactory.InitElements(driver, this);
         }
 
+        protected void SwitchToFrame(string id)
+        {
+            IWebElement iframe = driver.FindElement(By.Id(id));
+            wait.Until(drv => iframe.Displayed);
+            driver.SwitchTo().Frame(iframe);
+        }
+
         public void OpenPage()
         {
             driver.Navigate().GoToUrl(PageUrl);

@@ -4,7 +4,7 @@ namespace PracticalTasks.Model
 {
     public class ServerInstance
     {
-        public int NumberOfInstances { get; set; }
+        public string NumberOfInstances { get; set; }
         public string OperatingSystem { get; set; }
         public string InstanceSeries { get; set; }
         public string InstanceType { get; set; }
@@ -14,7 +14,7 @@ namespace PracticalTasks.Model
         public string DatacenterLocation { get; set; }
         public string CommittedUsage { get; set; }
 
-        public ServerInstance(int numberOfInstances, string operatingSystem, string vmClass,
+        public ServerInstance(string numberOfInstances, string operatingSystem, 
             string instanceSeries, string instanceType, string numberOfGpu, string gpuType,
             string localSsd, string datacenterLocation, string committedUsage)
         {
@@ -27,16 +27,6 @@ namespace PracticalTasks.Model
             LocalSsd = localSsd;
             DatacenterLocation = datacenterLocation;
             CommittedUsage = committedUsage;
-        }
-
-        public void SetNumberOfInstances(int number)
-        {
-            this.NumberOfInstances = number;
-        }
-
-        public void FillForm(PriceCalculatorPage priceCalculatorPage)
-        {
-
-        }        
+        }      
     }
 }

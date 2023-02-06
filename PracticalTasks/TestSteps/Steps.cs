@@ -6,12 +6,12 @@ namespace PracticalTasks.TestSteps
     public class Steps
     {
         private IWebDriver driver;
+        public IWebDriver Driver => driver;
+
 
         public void InitializeBrowser()
         {
             driver = WebDriverManager.GetInstance();
         }
-
-        public void 
     }
 }
