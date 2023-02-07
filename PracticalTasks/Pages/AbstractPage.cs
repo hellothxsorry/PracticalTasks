@@ -13,13 +13,12 @@ namespace PracticalTasks.Pages
         protected AbstractPage(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             PageFactory.InitElements(driver, this);
         }
 
-        protected void SwitchToFrame(string id)
-        {
-            IWebElement iframe = driver.FindElement(By.Id(id));
+        protected void SwitchToFrame(IWebElement iframe)
+        {            
             wait.Until(drv => iframe.Displayed);
             driver.SwitchTo().Frame(iframe);
         }
@@ -27,6 +26,16 @@ namespace PracticalTasks.Pages
         public void OpenPage()
         {
             driver.Navigate().GoToUrl(PageUrl);
+        }
+
+        public void OpenNewBrowserTab()
+        {
+            driver.SwitchTo().NewWindow(WindowType.Tab);
+        }
+
+        public void SwitchToPreviousTab()
+        {
+
         }
     }
 }

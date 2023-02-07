@@ -1,39 +1,48 @@
 ﻿using PracticalTasks.TestSteps;
 using OpenQA.Selenium;
 using Xunit;
-using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Model;
 using PracticalTasks.Services;
+using PracticalTasks.Pages;
 using Xunit.Abstractions;
+using System.Reflection;
 
 namespace PracticalTasks.Tests
 {
-    public class SmokeTests: IDisposable
+    public class SmokeTests: CommonConditions
     {
-        private Steps steps = new Steps();
-
         [Fact]
-        public void CanPutValueIntoTextField()
+        public void CanOpenResearchResults()
         {
-            ServerInstance server = ServerCreator.WithSetupFromProperty();            
             steps.InitializeBrowser();
-            steps.Driver.Navigate().GoToUrl("https://cloud.google.com/products/calculator");
-            WebDriverWait wait = new WebDriverWait(steps.Driver, TimeSpan.FromSeconds(10));
-            IWebElement iframe = steps.Driver.FindElement(By.XPath("//iframe[@src='https://cloud.google.com/frame/products/calculator/index_d6a98ba38837346d20babc06ff2153b68c2990fa24322fe52c5f83ec3a78c6a0.frame']"));
-            wait.Until(drv => iframe.Displayed);
-            steps.Driver.SwitchTo().Frame(iframe);
-            iframe = steps.Driver.FindElement(By.Id("myFrame"));
-            steps.Driver.SwitchTo().Frame(iframe);
-            IWebElement numberOfInstances = steps.Driver.FindElement(By.CssSelector("[ng-model='listingCtrl.computeServer.quantity']"));
-            numberOfInstances.SendKeys(server.NumberOfInstances);
-            string result = numberOfInstances.Text;
-            Assert.Equal("4", result);
+            steps.OpenCalculatorPageBySearchRequest();
+            steps.OpenNewBrowserTab();
+
+            string result = steps.CheckResultsAfterSearch();
+
+            Assert.Equal(TestDataReader.GetTestData("testdata.searchRequest"),
+                result);
         }
 
-        public void Dispose()
+        [Fact]
+        public void CanGenerateTempEmailAddress()
         {
-            steps.Driver.Quit();
-            steps.Driver.Dispose();
+            steps.InitializeBrowser();
+            string result = steps.GenerateTempEmail();
+
+            Assert.Contains("@yopmail.com", result);
+        }
+
+        [Fact]
+        public void CanSelectElementFromDropdownList()
+        {
+            steps.InitializeBrowser();
+            ServerInstance server = CreateServer.WithPresetFromProperty();
+            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(steps.Driver);
+            priceCalculatorPage.OpenPage();
+            string result = priceCalculatorPage.SelectElementFromDropdownList(server);
+
+            Assert.Contains(TestDataReader.GetTestData("testdata.server.operatingSystemW"), result);
         }
     }
 }

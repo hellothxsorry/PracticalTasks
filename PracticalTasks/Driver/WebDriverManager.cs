@@ -4,7 +4,7 @@ using OpenQA.Selenium.Firefox;
 
 namespace PracticalTasks.Driver
 {
-    public class WebDriverManager : IDisposable
+    public class WebDriverManager
     {
         private static IWebDriver driver;
 
@@ -14,12 +14,16 @@ namespace PracticalTasks.Driver
         {
             if (driver == null)
             {
-                var browser = Environment.GetEnvironmentVariable("browser");
+                var browser = Environment.GetEnvironmentVariable("browser") ?? "chrome";
+                browser = browser.Trim();
 
                 switch (browser)
                 {
                     case "firefox":
                         driver = new FirefoxDriver();
+                        break;
+                    case "chrome":
+                        driver = new ChromeDriver();
                         break;
                     default:
                         driver = new ChromeDriver();
@@ -31,12 +35,6 @@ namespace PracticalTasks.Driver
             }
 
             return driver;
-        }
-
-        public void Dispose()
-        {
-            driver.Quit();
-            driver.Dispose();
         }
     }
 }

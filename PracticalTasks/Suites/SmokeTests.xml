@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<suite name="Smoke Test Suite">
+	<test name="SmokeTest">
+		<classes>
+			<class name="PracticalTasks.Tests.SmokeTests"/>
+		</classes>
+	</test>	
+</suite>

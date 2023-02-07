@@ -2,25 +2,30 @@
 using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Driver;
 using PracticalTasks.Model;
+using PracticalTasks.Services;
+using PracticalTasks.TestSteps;
 using Xunit;
 
 namespace PracticalTasks.Tests
 {
-    public class PricingCalculatorTests
+    public class PricingCalculatorTests: CommonConditions
     {
-        private IWebDriver driver;
-        private WebDriverWait wait;
-
-        public void SetUp()
-        {
-            driver = WebDriverManager.GetInstance();
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-        }
 
         [Fact]
         public void CanCheckEstimatedMonthlyCost()
         {
-            ServerInstance testServer;
+            steps.InitializeBrowser();
+            steps.OpenCalculatorPageBySearchRequest();
+            steps.FillCalculatorForm();
+            steps.OpenNewBrowserTab();
+            string tempEmail = steps.GenerateTempEmail();
+            steps.SwitchBackToLastBrowserTab(0);
+            string estimatedCostFromCalculator = steps.GetEstimatedCostFromCalculator();
+            steps.SendReportToGeneratedMail(tempEmail);
+            steps.SwitchBackToLastBrowserTab(1);
+            string estimatedCostFromEmail = steps.GetEstimatedCostFromEmail();
+
+            Assert.Contains(estimatedCostFromEmail, estimatedCostFromCalculator);
         }
     }
 }

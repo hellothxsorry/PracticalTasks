@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace PracticalTasks.Services
 {
-    public class ServerCreator
+    public class CreateServer
     {
         public static readonly string TestDataNumberOfInstances = "testdata.server.numberOfInstances";
 		public static readonly string TestDataOperatingSystem = "testdata.server.operatingSystem";
@@ -15,7 +15,7 @@ namespace PracticalTasks.Services
 		public static readonly string TestDataDatacenterLocation = "testdata.server.datacenterLocation";
 		public static readonly string TestDataCommittedUsage = "testdata.server.committedUsage";
 
-		public static ServerInstance WithSetupFromProperty()
+		public static ServerInstance WithPresetFromProperty()
         {
 			return new ServerInstance(TestDataReader.GetTestData(TestDataNumberOfInstances),
 				TestDataReader.GetTestData(TestDataOperatingSystem),
