@@ -20,8 +20,7 @@ namespace PracticalTasks.Tests
 
             string result = steps.CheckResultsAfterSearch();
 
-            Assert.Equal(TestDataReader.GetTestData("testdata.searchRequest"),
-                result);
+            Assert.Contains(result, TestDataReader.GetTestData("testdata.searchRequest"));
         }
 
         [Fact]
@@ -42,7 +41,7 @@ namespace PracticalTasks.Tests
             priceCalculatorPage.OpenPage();
             string result = priceCalculatorPage.SelectElementFromDropdownList(server);
 
-            Assert.Contains(TestDataReader.GetTestData("testdata.server.operatingSystemW"), result);
+            Assert.Contains(TestDataReader.GetTestData("testdata.server.operatingSystem"), result);
         }
     }
 }

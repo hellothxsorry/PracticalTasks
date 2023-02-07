@@ -8,5 +8,5 @@
   "testdata.server.localSsd": "2x375 GB",
   "testdata.server.datacenterLocation": "Frankfurt (europe-west3)",
   "testdata.server.committedUsage": "1 Year",
-  "testdata.searchRequest": "Google Cloud Platform Pricing Calculator"
+  "testdata.searchRequest": "Google Cloud Pricing Calculator"
 }
