@@ -1,0 +1,12 @@
+{
+	"testdata.server.numberOfInstances": "3",
+	"testdata.server.operatingSystem": "Paid: Windows Server 2012 R2, Windows Server 2016, Windows Server 2019, Windows Server (2004, 20H2)",
+	"testdata.server.instanceSeries": "N1",
+	"testdata.server.instanceType": "n1-standard-16 (vCPUs: 16, RAM: 60GB)",
+	"testdata.server.numberOfGpu": "2",
+	"testdata.server.gpuType": "NVIDIA Tesla V100",
+	"testdata.server.localSsd": "5x375 GB",
+	"testdata.server.datacenterLocation": "Taiwan (asia-east1)",
+	"testdata.server.committedUsage": "3 Years",
+	"testdata.browser.searchRequest": "Google Cloud Platform Pricing Calculator"
+}	
