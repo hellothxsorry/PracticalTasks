@@ -29,6 +29,7 @@ namespace PracticalTasks.TestSteps
         public string CheckResultsAfterSearch()
         {
             SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+            searchResultsPage.OpenPage();
             string result = searchResultsPage.GetFirstSearchResult();
 
             return result;
