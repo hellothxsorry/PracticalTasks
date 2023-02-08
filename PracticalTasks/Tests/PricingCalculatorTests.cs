@@ -11,6 +11,7 @@ namespace PracticalTasks.Tests
         private IWebDriver driver;
 
         [Fact]
+        [Trait("Category", "Task")]
         public void CanCheckEstimatedMonthlyCost()
         {
             Steps steps = new Steps();
