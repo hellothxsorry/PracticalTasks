@@ -1,31 +1,33 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Driver;
-using PracticalTasks.Model;
-using PracticalTasks.Services;
 using PracticalTasks.TestSteps;
+using System.Reflection;
 using Xunit;
 
 namespace PracticalTasks.Tests
 {
-    public class PricingCalculatorTests: CommonConditions
+    public class PricingCalculatorTests
     {
+        private IWebDriver driver;
 
         [Fact]
         public void CanCheckEstimatedMonthlyCost()
         {
-            steps.InitializeBrowser();
-            steps.OpenCalculatorPageBySearchRequest();
-            steps.FillCalculatorForm();
-            steps.OpenNewBrowserTab();
-            string tempEmail = steps.GenerateTempEmail();
-            steps.SwitchBackToLastBrowserTab(0);
-            string estimatedCostFromCalculator = steps.GetEstimatedCostFromCalculator();
-            steps.SendReportToGeneratedMail(tempEmail);
-            steps.SwitchBackToLastBrowserTab(1);
-            string estimatedCostFromEmail = steps.GetEstimatedCostFromEmail();
+            Steps steps = new Steps();
+            driver = WebDriverManager.GetInstance();
+            steps.OpenCalculatorPageBySearchRequest(driver);
+            steps.FillCalculatorForm(driver);
+            steps.OpenNewBrowserTab(driver);
+            string tempEmail = steps.GenerateTempEmail(driver);
+            steps.SwitchBackToLastBrowserTab(driver, 0);
+            string estimatedCostFromCalculator = steps.GetEstimatedCostFromCalculator(driver);
+            steps.SendReportToGeneratedMail(driver, tempEmail);
+            steps.SwitchBackToLastBrowserTab(driver, 1);
+            string estimatedCostFromEmail = steps.GetEstimatedCostFromEmail(driver);
 
             Assert.Contains(estimatedCostFromEmail, estimatedCostFromCalculator);
+
+            steps.DisposeTest(driver);
         }
     }
 }

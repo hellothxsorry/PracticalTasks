@@ -1,23 +1,14 @@
 ﻿using OpenQA.Selenium;
-using PracticalTasks.Driver;
 using PracticalTasks.Model;
 using PracticalTasks.Pages;
 using PracticalTasks.Services;
+using System.Reflection;
 
 namespace PracticalTasks.TestSteps
 {
     public class Steps
     {
-        private IWebDriver driver;
-
-        public IWebDriver Driver => driver;
-
-        public void InitializeBrowser()
-        {
-            driver = WebDriverManager.GetInstance();
-        }
-
-        public void OpenCalculatorPageBySearchRequest()
+        public void OpenCalculatorPageBySearchRequest(IWebDriver driver)
         {
             MainPage mainPage = new MainPage(driver);
             mainPage.OpenPage();
@@ -26,7 +17,7 @@ namespace PracticalTasks.TestSteps
             searchResultsPage.GoToSearchResultPage();
         }
 
-        public string CheckResultsAfterSearch()
+        public string CheckResultsAfterSearch(IWebDriver driver)
         {
             SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
             searchResultsPage.OpenPage();
@@ -35,19 +26,19 @@ namespace PracticalTasks.TestSteps
             return result;
         }
 
-        public void FillCalculatorForm()
+        public void FillCalculatorForm(IWebDriver driver)
         {
             ServerInstance server = CreateServer.WithPresetFromProperty();
             PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
             priceCalculatorPage.FillForm(server);
         }
 
-        public void OpenNewBrowserTab()
+        public void OpenNewBrowserTab(IWebDriver driver)
         {
             driver.SwitchTo().NewWindow(WindowType.Tab);
         }
 
-        public string GenerateTempEmail()
+        public string GenerateTempEmail(IWebDriver driver)
         {
             EmailPage emailPage = new EmailPage(driver);
             emailPage.OpenPage();
@@ -56,19 +47,19 @@ namespace PracticalTasks.TestSteps
             return result;
         }
 
-        public void SwitchBackToLastBrowserTab(int tabNumber)
+        public void SwitchBackToLastBrowserTab(IWebDriver driver, int tabNumber)
         {
             List<string> tabs = new List<string>(driver.WindowHandles);
             driver.SwitchTo().Window(tabs[tabNumber]);
         }
 
-        public void SendReportToGeneratedMail(string email)
+        public void SendReportToGeneratedMail(IWebDriver driver, string email)
         {
             PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
             priceCalculatorPage.SendEstimatedCostByEmail(email);
         }
 
-        public string GetEstimatedCostFromEmail()
+        public string GetEstimatedCostFromEmail(IWebDriver driver)
         {
             EmailPage emailPage = new EmailPage(driver);
             string result =  emailPage.CheckInbox()
@@ -78,11 +69,37 @@ namespace PracticalTasks.TestSteps
             return result;
         }
 
-        public string GetEstimatedCostFromCalculator()
+        public string GetEstimatedCostFromCalculator(IWebDriver driver)
         {
             PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);            
             string result = priceCalculatorPage.GetEstimatedCost(); 
             return result;
+        }
+
+        public void DisposeTest(IWebDriver driver)
+        {
+            var screenshotName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+
+            var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var screenshotsDirectory = Path.Combine(directory, "Screenshots");
+            if (!Directory.Exists(screenshotsDirectory))
+            {
+                Directory.CreateDirectory(screenshotsDirectory);
+            }
+            var filePath = Path.Combine(screenshotsDirectory, $"{screenshotName}.png");
+
+            try
+            {
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error occured while taking screenshot: {e.Message}");
+            }
+
+            driver.Quit();
+            driver.Dispose();
         }
     }
 }

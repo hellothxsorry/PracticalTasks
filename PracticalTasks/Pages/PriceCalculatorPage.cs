@@ -83,7 +83,8 @@ namespace PracticalTasks.Pages
             LocalSsdDropdown.Click();
             wait.Until(drv => GetElementFromDropdownList(server.LocalSsd)).Click();
             DatacenterLocationDropdown.Click();
-            wait.Until(drv => GetLocationFromDropdownList(server.DatacenterLocation)).Click();
+            wait.Until(drv => GetLocationFromDropdownList(server.DatacenterLocation));
+            GetLocationFromDropdownList(server.DatacenterLocation).Click();
             CommittedUsageDropdown.Click();
             wait.Until(drv => GetCommittedUsageFromDropdownList(server.CommittedUsage)).Click();
             AddToEstimateButton.Click();
@@ -95,6 +96,7 @@ namespace PracticalTasks.Pages
         {
             SwitchToFrame(PricingCalculatorIframe);
             SwitchToFrame(FormIframe);
+            wait.Until(drv => OperatingSystemDropdown.Displayed);
             OperatingSystemDropdown.Click();
             wait.Until(drv => GetElementFromDropdownList(server.OperatingSystem)).Click();
             string result = OperatingSystemDropdown.Text;

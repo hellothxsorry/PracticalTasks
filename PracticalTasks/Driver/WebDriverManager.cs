@@ -6,35 +6,32 @@ namespace PracticalTasks.Driver
 {
     public class WebDriverManager
     {
-        private static IWebDriver driver;
+        private static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
 
         private WebDriverManager() { }
 
         public static IWebDriver GetInstance()
         {
-            if (driver == null)
+            var browser = Environment.GetEnvironmentVariable("browser") ?? "chrome";
+            browser = browser.Trim();
+
+            switch (browser)
             {
-                var browser = Environment.GetEnvironmentVariable("browser") ?? "chrome";
-                browser = browser.Trim();
-
-                switch (browser)
-                {
-                    case "firefox":
-                        driver = new FirefoxDriver();
-                        break;
-                    case "chrome":
-                        driver = new ChromeDriver();
-                        break;
-                    default:
-                        driver = new ChromeDriver();
-                        break;
-                }
-
-                driver.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
-                driver.Manage().Window.Maximize();
+                case "firefox":
+                    driver.Value = new FirefoxDriver();
+                    break;
+                case "chrome":
+                    driver.Value = new ChromeDriver();
+                    break;
+                default:
+                    driver.Value = new ChromeDriver();
+                    break;
             }
 
-            return driver;
+            driver.Value.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
+            driver.Value.Manage().Window.Maximize();
+
+            return driver.Value;
         }
     }
 }
