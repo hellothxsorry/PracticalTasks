@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<suite name="Task Test Suite">
-	<test name="Task testing">
-		<classes>
-			<class name="PracticalTasks.Tests.PricingCalculatorTests"/>
-		</classes>
-	</test>
-</suite>

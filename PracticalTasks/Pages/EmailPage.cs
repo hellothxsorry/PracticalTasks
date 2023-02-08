@@ -57,7 +57,7 @@ namespace PracticalTasks.Pages
         public EmailPage RefreshInbox()
         {
             wait.Until(drv => RefreshInboxButton.Displayed);
-            Thread.Sleep(550);
+            Thread.Sleep(1500);
             RefreshInboxButton.Click();
             return this;
         }
