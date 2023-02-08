@@ -84,6 +84,7 @@ namespace PracticalTasks.Pages
             wait.Until(drv => GetElementFromDropdownList(server.LocalSsd)).Click();
             DatacenterLocationDropdown.Click();
             wait.Until(drv => GetLocationFromDropdownList(server.DatacenterLocation));
+            Thread.Sleep(300);
             GetLocationFromDropdownList(server.DatacenterLocation).Click();
             CommittedUsageDropdown.Click();
             wait.Until(drv => GetCommittedUsageFromDropdownList(server.CommittedUsage)).Click();
