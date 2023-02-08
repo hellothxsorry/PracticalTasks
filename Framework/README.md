@@ -48,5 +48,5 @@ Hardcore task:**
 </p>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/50228202/217504780-4fd6bd1a-6a40-4766-a4d1-e02ce48fa2f2.png">
+  <img src="https://user-images.githubusercontent.com/50228202/217524241-126aa4d2-69cf-4c64-ae83-e931febd4b6d.png">
 </p>
