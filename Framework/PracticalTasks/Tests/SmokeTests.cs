@@ -11,6 +11,7 @@ namespace PracticalTasks.Tests
     public class SmokeTests
     {
         [Fact]
+        [Trait("Category", "Smoke")]
         public void CanOpenResearchResults()
         {
             IWebDriver driver = WebDriverManager.GetInstance();
@@ -26,6 +27,7 @@ namespace PracticalTasks.Tests
         }
 
         [Fact]
+        [Trait("Category", "Smoke")]
         public void CanGenerateTempEmailAddress()
         {
             IWebDriver driver = WebDriverManager.GetInstance();
@@ -38,6 +40,7 @@ namespace PracticalTasks.Tests
         }
 
         [Fact]
+        [Trait("Category", "Smoke")]
         public void CanSelectElementFromDropdownList()
         {
             IWebDriver driver = WebDriverManager.GetInstance();
