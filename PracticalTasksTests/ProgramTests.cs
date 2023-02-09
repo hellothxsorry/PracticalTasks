@@ -13,11 +13,9 @@ namespace PracticalTasksTests
         [InlineData("vRtKmJHnY", 9)]
         [InlineData("!q* ~%@(", 7)]
         [InlineData("", 0)]
-        public void Program_MaxUnequalChars_ReturnInt(string line, int expected)
+        public void MaxUnequalCharsTests(string line, int expected)
         {
-            var result = Program.MaxUnequalChars(line);
-
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, Program.MaxUnequalChars(line));
         }
 
         [Theory]
@@ -28,11 +26,9 @@ namespace PracticalTasksTests
         [InlineData("u uu", 2)]
         [InlineData("", 0)]
         [InlineData("!!!^^?-", 0)]
-        public void Program_MaxIdenticalLetters_ReturnInt(string input, int expected)
+        public void MaxIdenticalLettersTests(string input, int expected)
         {
-            var result = Program.MaxIdenticalLetters(input);
-
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, Program.MaxIdenticalLetters(input));
         }
 
         [Theory]
@@ -42,11 +38,9 @@ namespace PracticalTasksTests
         [InlineData("0918726453", 1)]
         [InlineData(" ", 0)]
         [InlineData("-55!!! 7*g1", 2)]
-        public void Program_MaxIdenticalDigits_ReturnInt(string line, int expected)
+        public void MaxIdenticalDigitsTests(string line, int expected)
         {
-            var result = Program.MaxIdenticalDigits(line);
-
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, Program.MaxIdenticalDigits(line));
         }
     }
 }

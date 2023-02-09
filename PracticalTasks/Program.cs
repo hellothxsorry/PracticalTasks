@@ -5,7 +5,7 @@
         public static int MaxUnequalChars(string str)
         {
             str = str.Replace(" ", "");
-            int strLength = str.Length;
+            var strLength = str.Length;
             int result = 0;
 
             for (int i = 0; i < strLength; i++)
@@ -32,7 +32,7 @@
         public static int MaxIdenticalLetters(string str)
         {
             str = str.ToLower();
-            int strLength = str.Length;
+            var strLength = str.Length;
             int result = 0;
 
             for (int i = 0; i < strLength; i++)
@@ -42,7 +42,10 @@
 
                 for (int j = i + 1; j < strLength; j++)
                 {
-                    if (str[i] != str[j]) break;
+                    if (str[i] != str[j])
+                    {
+                        break;
+                    }
                     currentCount++;
                 }
 
@@ -51,13 +54,12 @@
                     result = currentCount;
                 }
             }
-
             return result;
         }
 
         public static int MaxIdenticalDigits(string str)
         {
-            int strLength = str.Length;
+            var strLength = str.Length;
             int result = 0;
 
             for (int i = 0; i < strLength; i++)
@@ -67,7 +69,10 @@
 
                 for (int j = i + 1; j < strLength; j++)
                 {
-                    if (str[i] != str[j]) break;
+                    if (str[i] != str[j])
+                    {
+                        break;
+                    }
                     currentCount++;
                 }
 
@@ -76,7 +81,6 @@
                     result = currentCount;
                 }
             }
-
             return result;
         }
 
