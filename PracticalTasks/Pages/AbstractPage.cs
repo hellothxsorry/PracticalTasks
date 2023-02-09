@@ -27,15 +27,5 @@ namespace PracticalTasks.Pages
         {
             driver.Navigate().GoToUrl(PageUrl);
         }
-
-        public void OpenNewBrowserTab()
-        {
-            driver.SwitchTo().NewWindow(WindowType.Tab);
-        }
-
-        public void SwitchToPreviousTab()
-        {
-
-        }
     }
 }

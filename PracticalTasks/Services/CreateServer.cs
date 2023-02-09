@@ -1,5 +1,4 @@
 ﻿using PracticalTasks.Model;
-using System.Configuration;
 
 namespace PracticalTasks.Services
 {

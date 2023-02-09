@@ -1,6 +1,4 @@
-﻿using PracticalTasks.Pages;
-
-namespace PracticalTasks.Model
+﻿namespace PracticalTasks.Model
 {
     public class ServerInstance
     {

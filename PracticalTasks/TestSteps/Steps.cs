@@ -22,7 +22,6 @@ namespace PracticalTasks.TestSteps
             SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
             searchResultsPage.OpenPage();
             string result = searchResultsPage.GetFirstSearchResult();
-
             return result;
         }
 
@@ -97,9 +96,6 @@ namespace PracticalTasks.TestSteps
             {
                 Console.WriteLine($"Error occured while taking screenshot: {e.Message}");
             }
-
-            driver.Quit();
-            driver.Dispose();
         }
     }
 }

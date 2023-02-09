@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Model;
 
 namespace PracticalTasks.Pages
@@ -89,7 +88,6 @@ namespace PracticalTasks.Pages
             CommittedUsageDropdown.Click();
             wait.Until(drv => GetCommittedUsageFromDropdownList(server.CommittedUsage)).Click();
             AddToEstimateButton.Click();
-
             return new PriceCalculatorPage(driver);
         }        
 
@@ -111,7 +109,6 @@ namespace PracticalTasks.Pages
             wait.Until(drv => EmailAddressInput.Displayed);
             EmailAddressInput.SendKeys(email);
             SendEmailButton.Click();
-
             return this;
         }
 

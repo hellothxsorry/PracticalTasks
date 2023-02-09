@@ -1,5 +1,4 @@
 ﻿using PracticalTasks.TestSteps;
-using OpenQA.Selenium;
 using Xunit;
 using PracticalTasks.Model;
 using PracticalTasks.Services;
@@ -8,43 +7,40 @@ using PracticalTasks.Driver;
 
 namespace PracticalTasks.Tests
 {
-    public class SmokeTests
+    [Collection("SequentialTestCollection")]
+    public class SmokeTests: CommonConditions
     {
+        public SmokeTests(WebDriverFixture webDriverFixture) : base(webDriverFixture) { }
+
         [Fact]
         [Trait("Category", "Smoke")]
-        public void CanOpenResearchResults()
-        {
-            IWebDriver driver = WebDriverManager.GetInstance();
-            Steps steps = new Steps();
-            steps.OpenCalculatorPageBySearchRequest(driver);
-            steps.OpenNewBrowserTab(driver);
+        public void ShouldOpenResearchResultsTests()
+        {            
+            Steps.OpenCalculatorPageBySearchRequest(driver);
+            Steps.OpenNewBrowserTab(driver);
 
-            string result = steps.CheckResultsAfterSearch(driver);
+            var result = Steps.CheckResultsAfterSearch(driver);
 
             Assert.Contains(result, TestDataReader.GetTestData("testdata.searchRequest"));
 
-            steps.DisposeTest(driver);
+            Steps.DisposeTest(driver);
         }
 
         [Fact]
         [Trait("Category", "Smoke")]
-        public void CanGenerateTempEmailAddress()
+        public void ShouldGenerateTempEmailAddressTests()
         {
-            IWebDriver driver = WebDriverManager.GetInstance();
-            Steps steps = new Steps();
-            string result = steps.GenerateTempEmail(driver);
+            string result = Steps.GenerateTempEmail(driver);
 
             Assert.Contains("@yopmail.com", result);
 
-            steps.DisposeTest(driver);
+            Steps.DisposeTest(driver);
         }
 
         [Fact]
         [Trait("Category", "Smoke")]
-        public void CanSelectElementFromDropdownList()
+        public void ShouldSelectElementFromDropdownListTests()
         {
-            IWebDriver driver = WebDriverManager.GetInstance();
-            Steps steps = new Steps();
             ServerInstance server = CreateServer.WithPresetFromProperty();
             PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
             priceCalculatorPage.OpenPage();
@@ -52,7 +48,7 @@ namespace PracticalTasks.Tests
 
             Assert.Contains(TestDataReader.GetTestData("testdata.server.operatingSystem"), result);
 
-            steps.DisposeTest(driver);
+            Steps.DisposeTest(driver);
         }
     }
 }

@@ -20,8 +20,7 @@ namespace PracticalTasks.Services
                 {
                     TestData.Add(pair.Key, pair.Value);
                 }
-            }            
-
+            }         
             return TestData[key];
         }
     }

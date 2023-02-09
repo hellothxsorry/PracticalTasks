@@ -1,34 +1,31 @@
-﻿using OpenQA.Selenium;
-using PracticalTasks.Driver;
+﻿using PracticalTasks.Driver;
 using PracticalTasks.TestSteps;
-using System.Reflection;
 using Xunit;
 
 namespace PracticalTasks.Tests
 {
-    public class PricingCalculatorTests
+    [Collection("PricingCalculatorTests")]
+    public class PricingCalculatorTests: CommonConditions
     {
-        private IWebDriver driver;
+        public PricingCalculatorTests(WebDriverFixture webDriverFixture) : base(webDriverFixture) { }
 
         [Fact]
         [Trait("Category", "Task")]
-        public void CanCheckEstimatedMonthlyCost()
-        {
-            Steps steps = new Steps();
-            driver = WebDriverManager.GetInstance();
-            steps.OpenCalculatorPageBySearchRequest(driver);
-            steps.FillCalculatorForm(driver);
-            steps.OpenNewBrowserTab(driver);
-            string tempEmail = steps.GenerateTempEmail(driver);
-            steps.SwitchBackToLastBrowserTab(driver, 0);
-            string estimatedCostFromCalculator = steps.GetEstimatedCostFromCalculator(driver);
-            steps.SendReportToGeneratedMail(driver, tempEmail);
-            steps.SwitchBackToLastBrowserTab(driver, 1);
-            string estimatedCostFromEmail = steps.GetEstimatedCostFromEmail(driver);
+        public void ShouldCheckEstimatedMonthlyCostTests()
+        {            
+            Steps.OpenCalculatorPageBySearchRequest(driver);
+            Steps.FillCalculatorForm(driver);
+            Steps.OpenNewBrowserTab(driver);
+            string tempEmail = Steps.GenerateTempEmail(driver);
+            Steps.SwitchBackToLastBrowserTab(driver, 0);
+            string estimatedCostFromCalculator = Steps.GetEstimatedCostFromCalculator(driver);
+            Steps.SendReportToGeneratedMail(driver, tempEmail);
+            Steps.SwitchBackToLastBrowserTab(driver, 1);
+            string estimatedCostFromEmail = Steps.GetEstimatedCostFromEmail(driver);
 
             Assert.Contains(estimatedCostFromEmail, estimatedCostFromCalculator);
 
-            steps.DisposeTest(driver);
+            Steps.DisposeTest(driver);
         }
     }
 }
