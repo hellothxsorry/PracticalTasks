@@ -1,9 +1,4 @@
 ﻿using PracticalTasks.Receiver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticalTasks.Commands
 {
@@ -23,9 +18,11 @@ namespace PracticalTasks.Commands
 
             Console.Clear();
 
-            for (int i = 0; i < totalCarNumber; i++)
+            int i = 1;
+            foreach(var car in currentList)
             {
-                Console.WriteLine($"{i + 1}. {currentList[i].Model}\n");
+                Console.WriteLine($"{i}. {car.Model}\n");
+                i++;
             }
             Console.WriteLine($"Total number of all cars: {totalCarNumber}\n" +
                 $"----- ----- ----- ----- ----- ----- ----- ----- ----- -----\n");

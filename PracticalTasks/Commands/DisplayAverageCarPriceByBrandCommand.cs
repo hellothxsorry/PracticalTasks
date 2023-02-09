@@ -1,9 +1,4 @@
 ﻿using PracticalTasks.Receiver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticalTasks.Commands
 {
@@ -23,9 +18,11 @@ namespace PracticalTasks.Commands
 
             Console.Clear();
 
-            for (int i = 0; i < brandListWithMean.Count(); i++)
+            int i = 1;
+            foreach (var brand in brandListWithMean)
             {
-                Console.WriteLine($"{i + 1}. The average cost of {brandListWithMean[i].Brand} is: ${brandListWithMean[i].Avg}\n");
+                Console.WriteLine($"{i}. {brand.Brand} is: ${brand.Avg}\n");
+                i++;
             }
             Console.WriteLine($"----- ----- ----- ----- ----- ----- ----- ----- ----- -----\n");
         }

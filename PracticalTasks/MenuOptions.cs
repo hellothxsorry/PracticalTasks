@@ -1,10 +1,5 @@
 ﻿using PracticalTasks.Commands;
 using PracticalTasks.Receiver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticalTasks
 {
@@ -26,25 +21,10 @@ namespace PracticalTasks
             this.carsRepository = carsRepository;
         }
 
-        public void ChooseBrandsNumber()
-        {
-            getBrandsNumberCommand.Execute();
-        }
-
-        public void ChooseTotalCarNumber()
-        {
-            getTotalCarNumberCommand.Execute();
-        }
-
-        public void ChooseAverageBrandPrice()
-        {
-            displayAverageBrandPriceCommand.Execute();
-        }
-
-        public void ChooseAverageCarPrice()
-        {
-            displayAverageCarPriceCommand.Execute();
-        }
+        public void ChooseBrandsNumber() => getBrandsNumberCommand.Execute();
+        public void ChooseTotalCarNumber() => getTotalCarNumberCommand.Execute();
+        public void ChooseAverageBrandPrice() => displayAverageBrandPriceCommand.Execute();
+        public void ChooseAverageCarPrice() => displayAverageCarPriceCommand.Execute();
 
         public void DisplayAll()
         {
@@ -56,10 +36,11 @@ namespace PracticalTasks
             {
                 Console.WriteLine("Current list of all cars:\n");
 
-                for (int i = 0; i < carsRepository.GetCarsListInfo().Count; i++)
+                int i = 1;
+                foreach (var carInfo in carsRepository.GetCarsListInfo())
                 {
-                    Console.WriteLine($"{i + 1}. Brand: {carsRepository.GetCarsListInfo()[i].Brand} | Model: {carsRepository.GetCarsListInfo()[i].Model} | " +
-                        $"Price: {carsRepository.GetCarsListInfo()[i].Price}\n");
+                    Console.Write($"{i}. Brand: {carInfo.Brand} | Model: {carInfo.Model} | Price: {carInfo.Price}\n");
+                    i++;
                 }
                 Console.WriteLine("----- ----- ----- ----- ----- ----- ----- ----- ----- -----");
             }            
@@ -100,7 +81,7 @@ namespace PracticalTasks
 
             for (int i = 0; i < bufferCarQuantity; i++)
             {
-                Car newCar = new Car(bufferCarBrand, bufferCarModel, bufferCarPrice);
+                var newCar = new Car(bufferCarBrand, bufferCarModel, bufferCarPrice);
                 carsRepository.AddCar(newCar);
             }
 

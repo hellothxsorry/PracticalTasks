@@ -1,9 +1,4 @@
 ﻿using PracticalTasks.Receiver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracticalTasks.Commands
 {
@@ -24,13 +19,14 @@ namespace PracticalTasks.Commands
 
             Console.Clear();
 
-            for (int i = 0; i < brandsNumber; i++)
+            int i = 1;
+            foreach(var brand in brandsListWithoutDuplicate)
             {
-                Console.WriteLine($"{i + 1}. {brandsListWithoutDuplicate[i].Brand}\n");
+                Console.WriteLine($"{i}. {brand.Brand}\n");
+                i++;
             }
             Console.WriteLine($"Total number of brands: {brandsNumber}\n" +
-                $"----- ----- ----- ----- ----- ----- ----- ----- ----- -----\n");
-            
+                $"----- ----- ----- ----- ----- ----- ----- ----- ----- -----\n");            
         }
     }
 }
