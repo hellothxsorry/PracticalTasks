@@ -5,48 +5,41 @@ using OpenQA.Selenium;
 
 namespace PracticalTasks.Tests
 {
-    public class UserDataTests: IClassFixture<WebDriverFixture>
+    [Collection("UserDataTests")]
+    public class UserDataTests: CommonConditions
     {
-        private WebDriverFixture fixture;
+        public UserDataTests(WebDriverFixture fixture) : base(fixture) { }
 
-        public UserDataTests(WebDriverFixture fixture)
+        [Fact]
+        public void CanChangeUsernameTests()
         {
-            this.fixture = fixture;
+            loginPage.Login(TestData.Email2, TestData.Password);
+            profilePage.ChangeName(TestData.NewNickname1);
+
+            Assert.Equal(TestData.NewNickname1, profilePage.GetCurrentName());
         }
 
         [Fact]
-        public void CanChangeUsername()
+        public void CanSendReplyChangeNameTests()
         {
-            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
-            fixture.ProfilePage.ChangeName(TestData.NewNickname1);
-
-            string result = fixture.ProfilePage.GetCurrentName();
-
-            Assert.Equal(TestData.NewNickname1, result);
-        }
-
-        [Fact]
-        public void CanSendReplyChangeName()
-        {
-            string incomingMailParsedSubject =
+            var incomingMailParsedSubject =
                 $"//span[.='{TestData.Subject1}']";
 
-            fixture.LoginPage.Login(TestData.Email1, TestData.Password);
-            fixture.MailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
-            fixture.ProfilePage.SignOut();
+            loginPage.Login(TestData.Email1, TestData.Password);
+            mailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
+            profilePage.SignOut();
 
-            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
-            fixture.MailboxPage.ReplyToEmail(TestData.Subject1, TestData.NewNickname1);
-            fixture.ProfilePage.SignOut();
+            loginPage.Login(TestData.Email2, TestData.Password);
+            mailboxPage.ReplyToEmail(TestData.Subject1, TestData.NewNickname1);
+            profilePage.SignOut();
 
-            fixture.LoginPage.Login(TestData.Email1, TestData.Password);
-            fixture.Wait.Until(ExpectedConditions.ElementIsVisible(
+            loginPage.Login(TestData.Email1, TestData.Password);
+            wait.Until(ExpectedConditions.ElementIsVisible(
                 By.XPath(incomingMailParsedSubject)));
-            string newName = fixture.MailboxPage.ReadRecentEmailGetMessage();
-            fixture.ProfilePage.ChangeName(newName);
-            string result = fixture.ProfilePage.GetCurrentName();
+            string newName = mailboxPage.ReadRecentEmailGetMessage();
+            profilePage.ChangeName(newName);
 
-            Assert.Equal(TestData.NewNickname1, result);
+            Assert.Equal(TestData.NewNickname1, profilePage.GetCurrentName());
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using PracticalTasks.Utils;
 
 namespace PracticalTasks.PageObjects
 {
@@ -12,7 +11,7 @@ namespace PracticalTasks.PageObjects
         public LoginPage(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             driver.Navigate().GoToUrl("https://account.proton.me/login");
         }
 

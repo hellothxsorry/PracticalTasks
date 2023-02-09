@@ -7,21 +7,12 @@ namespace PracticalTasks.Utils
 {
     public class WebDriverFixture: IDisposable
     {
-        public IWebDriver Driver;
-        public WebDriverWait Wait;
-        public LoginPage LoginPage;
-        public MailboxPage MailboxPage;
-        public ProfilePage ProfilePage;
+        public IWebDriver Driver { get; private set; }
 
         public WebDriverFixture()
         {
-            var options = new ChromeOptions();
-            options.AddArgument("--start-maximized");
-            Driver = new ChromeDriver(options);
-            MailboxPage = new MailboxPage(Driver);
-            LoginPage = new LoginPage(Driver);
-            ProfilePage = new ProfilePage(Driver);
-            Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(60));
+            Driver = new ChromeDriver();
+            Driver.Manage().Window.Maximize();
         }
 
         public void Dispose()

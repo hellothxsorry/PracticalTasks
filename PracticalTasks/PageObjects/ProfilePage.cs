@@ -12,7 +12,7 @@ namespace PracticalTasks.PageObjects
         public ProfilePage(IWebDriver driver)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
         }
 
         private string gearButtonXpath = "//span[.='Settings']";

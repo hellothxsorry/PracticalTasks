@@ -1,47 +1,40 @@
 ﻿using Xunit;
 using OpenQA.Selenium;
 using PracticalTasks.Utils;
-using SeleniumExtras.WaitHelpers;
 
 namespace PracticalTasks.Tests
 {
-    public class EmailTests: IClassFixture<WebDriverFixture>
+    [Collection("EmailTests")]
+    public class EmailTests: CommonConditions
     {
-        private WebDriverFixture fixture;
-
-        public EmailTests(WebDriverFixture fixture)
-        {
-            this.fixture = fixture;
-        }
+        public EmailTests(WebDriverFixture fixture) : base(fixture) { }
 
         [Fact]
-        public void CanSendMail()
-        {
-            fixture.LoginPage.Login(TestData.Email1, TestData.Password);
-            fixture.MailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
-            
-            IWebElement successNotification = fixture.Driver.FindElement(By.
+        public void CanSendMailTests()
+        {          
+            loginPage.Login(TestData.Email1, TestData.Password);
+            mailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
+
+            IWebElement successNotification = driver.FindElement(By.
                 XPath("//span[.='Message sent.']"));
 
             Assert.Equal("Message sent.", successNotification.Text);
         }
 
         [Fact]
-        public void CanVerifyUnreadMail()
+        public void CanVerifyUnreadMailTests()
         {
-            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
-            string result = fixture.MailboxPage.CheckUnreadEmailSenderName();
+            loginPage.Login(TestData.Email2, TestData.Password);
 
-            Assert.Equal(TestData.Username1, result);
+            Assert.Equal(TestData.Username1, mailboxPage.CheckUnreadEmailSenderName());
         }
 
         [Fact]
-        public void CanReadMail()
+        public void CanReadMailTests()
         {
-            fixture.LoginPage.Login(TestData.Email2, TestData.Password);
-            string result = fixture.MailboxPage.ReadRecentEmailGetMessage();
+            loginPage.Login(TestData.Email2, TestData.Password);
 
-            Assert.Contains(TestData.EmailBodyContent, result);
+            Assert.Contains(TestData.EmailBodyContent, mailboxPage.ReadRecentEmailGetMessage());
         }           
     }
 }
