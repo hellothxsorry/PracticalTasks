@@ -8,6 +8,7 @@ namespace PracticalTasks
     {
         private IWebDriver driver;
         private const string BaseUrl = "https://www.bbc.com/sport";
+        private static readonly By asd = By.Id("");
 
         public BbcSportElementsTests()
         {
@@ -18,9 +19,7 @@ namespace PracticalTasks
         [Fact]
         public void CanLocateSearchFieldTest()
         {
-            IWebElement searchFieldInput = driver.FindElement(
-                By.CssSelector("div[aria-label='Search BBC'][role='search']" +
-                "[class='ssrcss-1j3alh1-GlobalNavigationItem e1gviwgp23']"));
+            IWebElement searchFieldInput = driver.FindElement(By.XPath("//div[@role='search']"));
 
             Assert.NotNull(searchFieldInput);
             Assert.True(searchFieldInput.Displayed);
@@ -29,17 +28,15 @@ namespace PracticalTasks
         [Fact]
         public void CanLocateAllSportsButtonTest()
         {
-            IWebElement allSportsButton = driver.FindElement(By.LinkText("More"));
+            IWebElement allSportsButton = driver.FindElement(By.CssSelector("[aria-controls='product-navigation-more-menu']"));
+            allSportsButton.Click();
 
-            Assert.NotNull(allSportsButton);
-            Assert.True(allSportsButton.Displayed);
         }
 
         [Fact]
         public void CanLocateBbcLogoTest()
         {
-            IWebElement bbcIcon = driver.FindElement(
-                By.XPath("/html/body/div[2]/div/div/div[1]/div/header/nav/div[1]/div/div[1]/a"));
+            IWebElement bbcIcon = driver.FindElement(By.XPath("//span[contains(text(),'Homepage')]/parent::span"));
 
             Assert.NotNull(bbcIcon);
             Assert.True(bbcIcon.Displayed);
