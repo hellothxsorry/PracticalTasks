@@ -16,7 +16,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateSearchFieldTests()
+        public void CanLocateSearchFieldTest()
         {
             IWebElement searchFieldInput = driver.FindElement(
                 By.CssSelector("div[aria-label='Search BBC'][role='search']" +
@@ -27,7 +27,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateAllSportsButtonTests()
+        public void CanLocateAllSportsButtonTest()
         {
             IWebElement allSportsButton = driver.FindElement(By.LinkText("More"));
 
@@ -36,7 +36,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateBbcLogoTests()
+        public void CanLocateBbcLogoTest()
         {
             IWebElement bbcIcon = driver.FindElement(
                 By.XPath("/html/body/div[2]/div/div/div[1]/div/header/nav/div[1]/div/div[1]/a"));

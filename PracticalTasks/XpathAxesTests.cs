@@ -16,7 +16,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateSearchFieldByXpathAxesTests()
+        public void CanLocateSearchFieldByXpathAxesTest()
         {
             IWebElement searchFieldInput = driver.FindElement(
                 By.XPath("//div[@role='search' and @aria-label='Search BBC']/" +
@@ -27,7 +27,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateAllSportsButtonByXpathAxesTests()
+        public void CanLocateAllSportsButtonByXpathAxesTest()
         {
             IWebElement allSportsButton = driver.FindElement(
                 By.XPath("//a[@href='/sport/all-sports' and " +
@@ -38,7 +38,7 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateBbcLogoByXpathAxesTests()
+        public void CanLocateBbcLogoByXpathAxesTest()
         {
             IWebElement bbcLogo = driver.FindElement(
                 By.XPath("//a[@href='https://www.bbc.com' and @class=" +
