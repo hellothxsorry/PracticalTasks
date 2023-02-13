@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.PageObjects;
 
 namespace PracticalTasks.Pages
 {
@@ -10,15 +9,15 @@ namespace PracticalTasks.Pages
         protected WebDriverWait wait;
         protected abstract string PageUrl { get; }
 
-        protected AbstractPage(IWebDriver driver)
+        protected AbstractPage(IWebDriver driver, WebDriverWait wait)
         {
             this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-            PageFactory.InitElements(driver, this);
+            this.wait = wait;
         }
 
-        protected void SwitchToFrame(IWebElement iframe)
-        {            
+        protected void SwitchToFrame(By locator)
+        {
+            var iframe = driver.FindElement(locator);
             wait.Until(drv => iframe.Displayed);
             driver.SwitchTo().Frame(iframe);
         }

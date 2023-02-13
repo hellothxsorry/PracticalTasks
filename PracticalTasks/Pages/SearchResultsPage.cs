@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 
 namespace PracticalTasks.Pages
@@ -10,7 +11,7 @@ namespace PracticalTasks.Pages
         [FindsBy(How = How.XPath, Using = "//div[@class='gsc-expansionArea']//div[@class='gsc-thumbnail-inside']//b[.='Google Cloud Pricing Calculator']")]
         private IWebElement SearchResultLink;
 
-        public SearchResultsPage(IWebDriver driver): base(driver) { }
+        public SearchResultsPage(IWebDriver driver, WebDriverWait wait): base(driver, wait) { }
 
         public void GoToSearchResultPage()
         {

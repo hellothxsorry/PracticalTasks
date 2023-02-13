@@ -1,17 +1,17 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
 
 namespace PracticalTasks.Pages
 {
     public class MainPage: AbstractPage
     {
+        public MainPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
         protected override string PageUrl { get { return "https://cloud.google.com/"; } }
 
-        [FindsBy(How = How.Name, Using = "q")]
-        private IWebElement SearchInput;     
+        private static By SearchInputLocator = By.Name("q");
         
-        public MainPage(IWebDriver driver): base(driver) { }
+        public IWebElement SearchInput => driver.FindElement(SearchInputLocator);         
 
         public SearchResultsPage StartSearchFor(string request)
         {

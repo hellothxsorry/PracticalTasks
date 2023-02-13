@@ -1,37 +1,30 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
 namespace PracticalTasks.Pages
 {
     public class EmailPage: AbstractPage
     {
+        public EmailPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
         protected override string PageUrl { get { return "https://yopmail.com/"; } }
 
-        [FindsBy(How = How.CssSelector, Using = "[title='Disposable Email Address Generator creates a new fake email for you in one click! Freely use this anounymous email on Internet']")]
-        private IWebElement RandomEmailGeneratorButton;
+        private static By InboxIframeLocator = By.Id("ifinbox");
+        private static By MessageBodyIframeLocator = By.Id("ifmail");
+        private static By GenerateEmailOutputLocator = By.Id("geny");
+        private static By CheckInboxButtonLocator = By.Id("refreshbut");
+        private static By RefreshInboxButtonLocator = By.Id("refresh");
+        private static By FirstEmailButtonLocator = By.XPath("(//body[contains(@class,'bodyinbox')]/descendant::button[@class='lm'])[1]");
+        private static By RandomEmailGeneratorButtonLocator = By.XPath("//div[@id='listeliens']/child::a[contains(@href,'generator')]");
+        private static By EstimatedCostOutputLocator = By.XPath("//td[contains(text(),'USD')]");        
 
-        [FindsBy(How = How.Id, Using = "geny")]
-        private IWebElement GeneratedEmailOutput;
-
-        [FindsBy(How = How.XPath, Using = "//button[.='Check Inbox']")]
-        private IWebElement CheckInboxButton;
-
-        [FindsBy(How = How.Id, Using = "refresh")]
-        private IWebElement RefreshInboxButton;
-
-        [FindsBy(How = How.XPath, Using = "//div[@class='mctn']/div[2]/button[@class='lm']")]
-        private IWebElement FirstEmailButton;
-
-        [FindsBy(How = How.XPath, Using = "//td[4]")]
-        private IWebElement EstimatedCostOutput;
-
-        [FindsBy(How = How.Id, Using = "ifinbox")]
-        private IWebElement InboxIframe;
-
-        [FindsBy(How = How.Id, Using = "ifmail")]
-        private IWebElement MessageBodyIframe;
-
-        public EmailPage(IWebDriver driver): base(driver) { }
+        public IWebElement RandomEmailGeneratorButton => driver.FindElement(RandomEmailGeneratorButtonLocator);
+        public IWebElement GeneratedEmailOutput => driver.FindElement(GenerateEmailOutputLocator);
+        public IWebElement CheckInboxButton => driver.FindElement(CheckInboxButtonLocator);
+        public IWebElement RefreshInboxButton => driver.FindElement(RefreshInboxButtonLocator);
+        public IWebElement FirstEmailButton => driver.FindElement(FirstEmailButtonLocator);        
+        public IWebElement EstimatedCostOutput => driver.FindElement(EstimatedCostOutputLocator);        
+        public IWebElement InboxIframe => driver.FindElement(InboxIframeLocator);
+        public IWebElement MessageBodyIframe => driver.FindElement(MessageBodyIframeLocator);        
 
         public EmailPage GenerateEmail()
         {
@@ -64,7 +57,7 @@ namespace PracticalTasks.Pages
 
         public EmailPage ReadMostRecentEmail()
         {
-            SwitchToFrame(InboxIframe);
+            SwitchToFrame(InboxIframeLocator);
             wait.Until(drv => FirstEmailButton.Displayed);
             FirstEmailButton.Click();
             driver.SwitchTo().DefaultContent();
@@ -73,7 +66,7 @@ namespace PracticalTasks.Pages
 
         public string ParseCostFromEmailContent()
         {
-            SwitchToFrame(MessageBodyIframe);
+            SwitchToFrame(MessageBodyIframeLocator);
             wait.Until(drv => EstimatedCostOutput.Displayed);
             string result = EstimatedCostOutput.Text;
             driver.SwitchTo().DefaultContent();

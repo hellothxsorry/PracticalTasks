@@ -1,12 +1,17 @@
 ﻿using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Model;
+using SeleniumExtras.PageObjects;
 
 namespace PracticalTasks.Pages
 {
     public class PriceCalculatorPage: AbstractPage
     {
+        public PriceCalculatorPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
         protected override string PageUrl { get { return "https://cloud.google.com/products/calculator"; } }
+
+        private static By PricingCalculatorIframeLocator = By.XPath("//iframe[contains(@src,'products/calculator')]");
+        private static By FormIframeLocator = By.Id("myFrame");
 
         [FindsBy(How = How.CssSelector, Using = "[ng-model='listingCtrl.computeServer.quantity']")]
         private IWebElement NumberOfInstancesInput;
@@ -47,26 +52,21 @@ namespace PracticalTasks.Pages
 
         [FindsBy(How = How.Id, Using = "Email Estimate")]
         private IWebElement SendTotalCostByEmailButton;
+                
+        private IWebElement PricingCalculatorIframe => driver.FindElement(PricingCalculatorIframeLocator);
 
-        [FindsBy(How = How.XPath, Using =
-            "//iframe[@src='https://cloud.google.com/frame/products/calculator/index_d6a98ba38837346d20babc06ff2153b68c2990fa24322fe52c5f83ec3a78c6a0.frame']")]
-        private IWebElement PricingCalculatorIframe;
-
-        [FindsBy(How = How.Id, Using = "myFrame")]
-        private IWebElement FormIframe;
+        private IWebElement FormIframe => driver.FindElement(FormIframeLocator);
 
         [FindsBy(How = How.CssSelector, Using = "[ng-model='emailQuote.user.email']")]
         private IWebElement EmailAddressInput;
 
         [FindsBy(How = How.XPath, Using = "//button[contains(.,'Send Email')]")]
-        private IWebElement SendEmailButton;
-
-        public PriceCalculatorPage(IWebDriver driver): base(driver) { }
+        private IWebElement SendEmailButton;        
 
         public PriceCalculatorPage FillForm(ServerInstance server)
         {
-            SwitchToFrame(PricingCalculatorIframe);
-            SwitchToFrame(FormIframe);
+            SwitchToFrame(PricingCalculatorIframeLocator);
+            SwitchToFrame(FormIframeLocator);
             NumberOfInstancesInput.SendKeys(server.NumberOfInstances);
             OperatingSystemDropdown.Click();
             wait.Until(drv => GetElementFromDropdownList(server.OperatingSystem)).Click();
@@ -88,13 +88,13 @@ namespace PracticalTasks.Pages
             CommittedUsageDropdown.Click();
             wait.Until(drv => GetCommittedUsageFromDropdownList(server.CommittedUsage)).Click();
             AddToEstimateButton.Click();
-            return new PriceCalculatorPage(driver);
+            return new PriceCalculatorPage(driver, wait);
         }        
 
         public string SelectElementFromDropdownList(ServerInstance server)
         {
-            SwitchToFrame(PricingCalculatorIframe);
-            SwitchToFrame(FormIframe);
+            SwitchToFrame(PricingCalculatorIframeLocator);
+            SwitchToFrame(FormIframeLocator);
             wait.Until(drv => OperatingSystemDropdown.Displayed);
             OperatingSystemDropdown.Click();
             wait.Until(drv => GetElementFromDropdownList(server.OperatingSystem)).Click();
@@ -114,8 +114,8 @@ namespace PracticalTasks.Pages
 
         public string GetEstimatedCost()
         {
-            SwitchToFrame(PricingCalculatorIframe);
-            SwitchToFrame(FormIframe);
+            SwitchToFrame(PricingCalculatorIframeLocator);
+            SwitchToFrame(FormIframeLocator);
             wait.Until(drv => TotalEstimatedCostOutput);
             string result = TotalEstimatedCostOutput.Text;
             return result;
