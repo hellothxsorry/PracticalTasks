@@ -1,45 +1,37 @@
 ﻿using Xunit;
-using PracticalTasks.Utils;
-using SeleniumExtras.WaitHelpers;
-using OpenQA.Selenium;
+using PracticalTasks.Driver;
 
 namespace PracticalTasks.Tests
 {
-    [Collection("UserDataTests")]
     public class UserDataTests: CommonConditions
     {
         public UserDataTests(WebDriverFixture fixture) : base(fixture) { }
 
         [Fact]
-        public void CanChangeUsernameTests()
+        public void ChangeUsernameTest()
         {
-            loginPage.Login(TestData.Email2, TestData.Password);
-            profilePage.ChangeName(TestData.NewNickname1);
+            loginPage.Login(userTwo.EmailAddress, userTwo.Password);
+            profilePage.ChangeName(emailTwo.Message);
 
-            Assert.Equal(TestData.NewNickname1, profilePage.GetCurrentName());
+            Assert.Equal(emailTwo.Message, profilePage.GetCurrentName());
         }
 
         [Fact]
-        public void CanSendReplyChangeNameTests()
+        public void SendReplyToChangeNameTest()
         {
-            var incomingMailParsedSubject =
-                $"//span[.='{TestData.Subject1}']";
-
-            loginPage.Login(TestData.Email1, TestData.Password);
-            mailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
+            loginPage.Login(userOne.EmailAddress, userOne.Password);
+            mailboxPage.ComposeEmail(userTwo.EmailAddress, emailOne.Subject, emailOne.Message);
             profilePage.SignOut();
 
-            loginPage.Login(TestData.Email2, TestData.Password);
-            mailboxPage.ReplyToEmail(TestData.Subject1, TestData.NewNickname1);
+            loginPage.Login(userTwo.EmailAddress, userTwo.Password);
+            mailboxPage.ReplyToEmail(userOne.EmailAddress, emailTwo.Message);
             profilePage.SignOut();
 
-            loginPage.Login(TestData.Email1, TestData.Password);
-            wait.Until(ExpectedConditions.ElementIsVisible(
-                By.XPath(incomingMailParsedSubject)));
-            string newName = mailboxPage.ReadRecentEmailGetMessage();
+            loginPage.Login(userOne.EmailAddress, userOne.Password);            
+            var newName = mailboxPage.ReadRecentEmailGetMessage();
             profilePage.ChangeName(newName);
 
-            Assert.Equal(TestData.NewNickname1, profilePage.GetCurrentName());
+            Assert.Equal(emailTwo.Message, profilePage.GetCurrentName());
         }
     }
 }

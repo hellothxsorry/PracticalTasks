@@ -1,99 +1,92 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using PracticalTasks.Utils;
+using OpenQA.Selenium.Support.UI;
 
 namespace PracticalTasks.PageObjects
 {
-    public class MailboxPage
+    public class MailboxPage: AbstractPage
     {
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        public MailboxPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
-        public MailboxPage(IWebDriver driver)
-        {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-        }
+        private static By MessageInputLocator = By.Id("rooster-editor");
+        private static By MessageOutputLocator = By.XPath("//div[@id='proton-root']/descendant::div[contains(@style,'font-family')]");
+        private static By SendButtonLocator = By.CssSelector("[data-testid='composer:send-button']");
+        private static By ReplyButtonLocator = By.CssSelector("[data-testid='message-view:reply']");
+        private static By NewMessageButtonLocator = By.CssSelector("[data-testid='sidebar:compose']");
+        private static By ToInputLocator = By.CssSelector("[data-testid='composer:to']");
+        private static By SubjectInputLocator = By.CssSelector("[data-testid='composer:subject']");        
+        private static By IframeMessageInputLocator = By.CssSelector("[data-testid=rooster-iframe]");
+        private static By IframeMessageOutputLocator = By.CssSelector("[data-testid=content-iframe]");
+        private static By RefreshInboxButtonLocator = By.CssSelector("[data-testid='navigation-link:refresh-folder']");
+        private static By SuccessfulNotificationOutputLocator = By.XPath("//span[.='Message sent.']");        
+        private static By SenderEmailAddressOutputLocator = By.XPath("(//span[@data-testid='message-column:sender-address'])[1]");
         
-        private string composeButtonCss = 
-            ".button.button-large.button-solid-norm.w100.no-mobile";
-        private string senderOutputXpath =
-            "//span[@class='inline-block max-w100 text-ellipsis']";
-        private string replyButtonXpath = "//button[.='Reply']";
-        private string messageInputIframeXpath =
-            "//div[@class='editor-wrapper fill w100 h100 scroll-if-needed flex-item-fluid flex flex-column relative']/iframe[1]";
-        private string messageOutputIframeXpath =
-            "//iframe[@src='about:blank']";
-
-        private IWebElement ComposeButton => driver.FindElement(By.CssSelector(composeButtonCss));
-        private IWebElement ToInput => driver.FindElement(By.CssSelector("[placeholder='Email address']"));
-        private IWebElement SubjectInput => driver.FindElement(By.CssSelector("[placeholder='Subject']"));
-        private IWebElement MessageInput => driver.FindElement(By.XPath("//div[@id='rooster-editor']"));
-        private IWebElement SendButton => driver.FindElement(By.CssSelector(".composer-send-button"));           
-        private IWebElement SenderOutput => driver.FindElement(By.XPath(senderOutputXpath));
-        private IWebElement MessageContentOutput => driver.FindElement(
-            By.CssSelector("#proton-root > div > div > div:nth-of-type(1)"));
-        private IWebElement ReplyButton => driver.FindElement(By.XPath(replyButtonXpath));
+        public IWebElement NewMessageButton => driver.FindElement(NewMessageButtonLocator);
+        public IWebElement ReplyButton => driver.FindElement(ReplyButtonLocator);
+        public IWebElement SendButton => driver.FindElement(SendButtonLocator);
+        public IWebElement RefreshInboxButton => driver.FindElement(RefreshInboxButtonLocator);
+        public IWebElement ToInput => driver.FindElement(ToInputLocator);
+        public IWebElement SubjectInput => driver.FindElement(SubjectInputLocator);
+        public IWebElement MessageInput => driver.FindElement(MessageInputLocator);                 
+        public IWebElement SenderEmailAddressOutput => driver.FindElement(SenderEmailAddressOutputLocator);
+        public IWebElement MessageContentOutput => driver.FindElement(MessageOutputLocator);        
+        public IWebElement SuccessNotificationOutput => driver.FindElement(SuccessfulNotificationOutputLocator);
 
         public void ComposeEmail(string to, string subject, string body)
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(composeButtonCss)));            
-            ComposeButton.Click();
+            UtilityMethods.WaitUntilVisible(wait, NewMessageButtonLocator);            
+            NewMessageButton.Click();
             wait.Until(driver => ToInput);
             ToInput.SendKeys(to);
             SubjectInput.SendKeys(subject);
-            SwitchToFrame(messageInputIframeXpath);
+            UtilityMethods.SwitchToFrame(wait, driver, IframeMessageInputLocator);
             MessageInput.Clear();
             MessageInput.SendKeys(body);
             driver.SwitchTo().DefaultContent();
             SendButton.Click();
-            WaitWhileNotVisibleByXpath("//span[.='Message sent.']");
+            wait.Until(ExpectedConditions.ElementIsVisible(SuccessfulNotificationOutputLocator));
         }
 
-        public string CheckUnreadEmailSenderName()
+        public string CheckUnreadEmailSenderAddress()
         {
-            WaitWhileNotVisibleByXpath(senderOutputXpath);
-            string senderName = SenderOutput.Text;
-            return senderName;
+            UtilityMethods.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            string senderEmailAddress = SenderEmailAddressOutput.GetAttribute("title");
+            return senderEmailAddress;
         }
 
         public string ReadRecentEmailGetMessage()
         {
-            WaitWhileNotVisibleByXpath(senderOutputXpath);
-            SenderOutput.Click();
-            WaitWhileNotVisibleByXpath(messageOutputIframeXpath);
-            SwitchToFrame(messageOutputIframeXpath);
+            Thread.Sleep(2000);
+            UtilityMethods.WaitUntilVisible(wait, RefreshInboxButtonLocator);
+            RefreshInboxButton.Click();
+            UtilityMethods.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            SenderEmailAddressOutput.Click();
+            UtilityMethods.WaitUntilVisible(wait, IframeMessageOutputLocator);
+            UtilityMethods.SwitchToFrame(wait, driver, IframeMessageOutputLocator);
+            UtilityMethods.WaitUntilVisible(wait, MessageOutputLocator);
             string message = MessageContentOutput.Text;
             driver.SwitchTo().DefaultContent();
             return message;
         }
 
-        public void ReplyToEmail(string parsedSubject, string replyMessage)
+        public void ReplyToEmail(string sender, string replyMessage)
         {
-            string subjectXpath = $"//span[.='{parsedSubject}']";
-            WaitWhileNotVisibleByXpath(subjectXpath);
-            driver.FindElement(By.XPath(subjectXpath)).Click();
-            WaitWhileNotVisibleByXpath(replyButtonXpath);
+            UtilityMethods.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            Thread.Sleep(2000);
+            RefreshInboxButton.Click();
+            UtilityMethods.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            SenderEmailAddressOutput.Click();
+            UtilityMethods.WaitUntilVisible(wait, ReplyButtonLocator);
             ReplyButton.Click();
-            WaitWhileNotVisibleByXpath(messageInputIframeXpath);
-            SwitchToFrame(messageInputIframeXpath);
+            UtilityMethods.WaitUntilVisible(wait, IframeMessageInputLocator);
+            UtilityMethods.SwitchToFrame(wait, driver, IframeMessageInputLocator);
+            UtilityMethods.WaitUntilVisible(wait, MessageInputLocator);
             MessageInput.Clear();
             MessageInput.SendKeys(replyMessage);
             driver.SwitchTo().DefaultContent();
             SendButton.Click();
-            WaitWhileNotVisibleByXpath("//span[.='Message sent.']");
-        }
-
-        private void SwitchToFrame(string frame)
-        {
-            IWebElement iframe = driver.FindElement(By.XPath(frame));
-            wait.Until(driver => iframe.Displayed);
-            driver.SwitchTo().Frame(iframe);
+            UtilityMethods.WaitUntilVisible(wait, SuccessfulNotificationOutputLocator);
         }        
-
-        private void WaitWhileNotVisibleByXpath(string expression)
-        {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(expression)));
-        }
     }
 }

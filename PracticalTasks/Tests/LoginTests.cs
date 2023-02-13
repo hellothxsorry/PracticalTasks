@@ -1,45 +1,39 @@
-﻿using OpenQA.Selenium;
-using SeleniumExtras.WaitHelpers;
-using PracticalTasks.Utils;
-using Xunit;
+﻿using Xunit;
+using PracticalTasks.Driver;
 
 namespace PracticalTasks.Tests
 {
-    [Collection("LoginTests")]
     public class LoginTests: CommonConditions
     {
         public LoginTests(WebDriverFixture fixture) : base(fixture) { }
 
         [Fact]
-        public void CanLoginWithValidCredentialsTests()
+        public void LoginWithValidCredentialsTest()
         {           
-            loginPage.Login(TestData.Email1, TestData.Password);
-            wait.Until(drv => driver.Title.Contains(TestData.Email1));
+            loginPage.Login(userOne.EmailAddress, userOne.Password);
+            wait.Until(drv => driver.Title.Contains(userOne.EmailAddress));
 
-            Assert.Contains("mail.proton.me", driver.Url);
+            Assert.Contains(userOne.EmailAddress, driver.Title);
+
+            profilePage.SignOut();
         }        
 
         [Fact]
-        public void ShouldNotLoginWithIncorrectCredentialsTests()
+        public void LoginWithIncorrectCredentialsTest()
         {
-            IWebElement resultNotification = driver.FindElement(By.
-                CssSelector(".notifications-container"));
+            loginPage.Login(incorrectUser.EmailAddress, incorrectUser.Password);  
+            wait.Until(drv => loginPage.VerificationLoginOutput);
 
-            loginPage.Login(TestData.Email1, TestData.WrongPassword);  
-            wait.Until(drv => resultNotification.Displayed);
-
-            Assert.Equal("Incorrect login credentials. Please try again", resultNotification.Text);
+            Assert.Contains("Human Verification", loginPage.VerificationLoginOutput.Text);
         }
 
         [Fact]
-        public void ShouldNotLoginWithEmptyCredentialsTests()
+        public void LoginWithEmptyCredentialsTest()
         {      
             loginPage.Login("", "");
+            wait.Until(drv => loginPage.EmptyCredentialsOutput);
 
-            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("id-3")));
-            IWebElement warningNotification = driver.FindElement(By.Id("id-3"));
-
-            Assert.Equal("This field is required", warningNotification.Text);
+            Assert.Contains("This field is required", loginPage.EmptyCredentialsOutput.Text);
         }
     }
 }

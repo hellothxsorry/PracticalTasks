@@ -1,31 +1,39 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PracticalTasks.Services;
+using PracticalTasks.Utils;
 
 namespace PracticalTasks.PageObjects
 {
-    public class LoginPage
-    {
-        private IWebDriver driver;
-        private WebDriverWait wait;        
-
-        public LoginPage(IWebDriver driver)
+    public class LoginPage: AbstractPage
+   {
+        public LoginPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) 
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-            driver.Navigate().GoToUrl("https://account.proton.me/login");
+            driver.Navigate().GoToUrl(pageUrl);
         }
 
-        private IWebElement UserEmailInput => driver.FindElement(By.XPath("//input[@id='username']"));
-        private IWebElement PasswordInput => driver.FindElement(By.XPath("//input[@id='password']"));
-        private IWebElement SubmitButton => driver.FindElement(
-            By.XPath("//button[@class='button w100 button-large button-solid-norm mt1-5']"));
+        private static By EmailAddressInputLocator = By.Id("username");
+        private static By PasswordInputLocator = By.Id("password");
+        private static By SignInButtonLocator = By.CssSelector("[type='submit']");
+        private static By VerificationLoginOutputLocator = By.CssSelector("[data-testid='verification']");
+        private static By IncorrectCredentialsOutputLocator = By.XPath("//div[contains(text(),'Incorrect login')]");
+        private static By EmptyCredentialsOutputLocator = By.XPath("//div[@id='id-3']");
+
+        public IWebElement SignInButton => driver.FindElement(SignInButtonLocator);
+        public IWebElement EmailAddressInput => driver.FindElement(EmailAddressInputLocator);
+        public IWebElement PasswordInput => driver.FindElement(PasswordInputLocator);
+        public IWebElement IncorrectCredentialsOutput => driver.FindElement(IncorrectCredentialsOutputLocator);
+        public IWebElement EmptyCredentialsOutput => driver.FindElement(EmptyCredentialsOutputLocator);
+        public IWebElement VerificationLoginOutput => driver.FindElement(VerificationLoginOutputLocator);
+
+        private readonly string pageUrl = TestDataReader.GetTestData("page.url");
 
         public void Login(string email, string password)
         {
-            wait.Until(drv => UserEmailInput.Displayed);
-            UserEmailInput.SendKeys(email);
+            UtilityMethods.WaitUntilVisible(wait, EmailAddressInputLocator);
+            EmailAddressInput.SendKeys(email);
             PasswordInput.SendKeys(password);
-            SubmitButton.Click();
+            SignInButton.Click();
         }
     }    
 }

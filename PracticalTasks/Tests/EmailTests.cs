@@ -1,40 +1,35 @@
 ﻿using Xunit;
-using OpenQA.Selenium;
-using PracticalTasks.Utils;
+using PracticalTasks.Driver;
 
 namespace PracticalTasks.Tests
 {
-    [Collection("EmailTests")]
     public class EmailTests: CommonConditions
     {
         public EmailTests(WebDriverFixture fixture) : base(fixture) { }
 
         [Fact]
-        public void CanSendMailTests()
-        {          
-            loginPage.Login(TestData.Email1, TestData.Password);
-            mailboxPage.ComposeEmail(TestData.Email2, TestData.Subject1, TestData.EmailBodyContent);
+        public void SendMailTest()
+        {
+            loginPage.Login(userOne.EmailAddress, userOne.Password);
+            mailboxPage.ComposeEmail(userTwo.EmailAddress, emailOne.Subject, emailOne.Message);
 
-            IWebElement successNotification = driver.FindElement(By.
-                XPath("//span[.='Message sent.']"));
-
-            Assert.Equal("Message sent.", successNotification.Text);
+            Assert.Equal("Message sent.", mailboxPage.SuccessNotificationOutput.Text);
         }
 
         [Fact]
-        public void CanVerifyUnreadMailTests()
+        public void VerifyUnreadMailTest()
         {
-            loginPage.Login(TestData.Email2, TestData.Password);
+            loginPage.Login(userTwo.EmailAddress, userTwo.Password);
 
-            Assert.Equal(TestData.Username1, mailboxPage.CheckUnreadEmailSenderName());
+            Assert.Equal(userOne.EmailAddress, mailboxPage.CheckUnreadEmailSenderAddress());
         }
 
         [Fact]
-        public void CanReadMailTests()
+        public void ReadMailTest()
         {
-            loginPage.Login(TestData.Email2, TestData.Password);
+            loginPage.Login(userTwo.EmailAddress, userTwo.Password);
 
-            Assert.Contains(TestData.EmailBodyContent, mailboxPage.ReadRecentEmailGetMessage());
+            Assert.Contains(emailOne.Message, mailboxPage.ReadRecentEmailGetMessage());
         }           
     }
 }

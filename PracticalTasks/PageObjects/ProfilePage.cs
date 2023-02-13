@@ -1,73 +1,65 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
+using PracticalTasks.Utils;
 
 namespace PracticalTasks.PageObjects
 {
-    public class ProfilePage
+    public class ProfilePage: AbstractPage
     {
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        public ProfilePage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
-        public ProfilePage(IWebDriver driver)
-        {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-        }
-
-        private string gearButtonXpath = "//span[.='Settings']";
-        private string accountButtonXpath = "//a[.='Account and password']";
-        private string goToSettingsButtonXpath = "//a[.='Go to settings']";
-        private string displayedNameCss = ".user-dropdown-displayName";
-        private string signOutButtonXpath = 
-            "//button[@class='button button-solid-norm w100']";
-        private string newNameSuccessNotificationXpath = 
-            "//div[@class='p1 mb0-5 text-break notification notification--in bg-success']";
-
-        private IWebElement GearButton => driver.FindElement(By.XPath(gearButtonXpath));        
-        private IWebElement GoToSettingsButton => driver.FindElement(By.XPath(goToSettingsButtonXpath));
-        private IWebElement AccountButton => driver.FindElement(By.XPath(accountButtonXpath));
-        private IWebElement EditButton => driver.FindElement(By.CssSelector(".link"));
-        private IWebElement DisplayedName => driver.FindElement(By.CssSelector(displayedNameCss));
-        private IWebElement NewNameInput => driver.FindElement(By.Id("displayName"));
-        private IWebElement SaveButton => driver.FindElement(By.CssSelector(".button-solid-norm"));
-        private IWebElement SignOutButton => driver.FindElement(By.XPath(signOutButtonXpath));
+        private static By NewNameInputLocator = By.Id("displayName");
+        private static By GearButtonLocator = By.CssSelector("[data-test-id='view:general-settings']");
+        private static By AccountButtonLocator = By.CssSelector("[title='Account and password']");
+        private static By SignOutButtonLocator = By.CssSelector("[data-testid='userdropdown:button:logout']");
+        private static By SignInButtonLocator = By.CssSelector("[type='submit']");
+        private static By DisplayedNameLabelLocator = By.CssSelector("[data-testid='heading:userdropdown']");
+        private static By GoToSettingsButtonLocator = By.XPath("//a[.='Go to settings']");        
+        private static By EditButtonLocator = By.XPath("//button[contains(text(),'Edit')]");
+        private static By SaveButtonLocator = By.XPath("//button[contains(text(),'Save')]");        
+        private static By NewNameSuccessNotificationOutputLocator = By.XPath("//div[contains(text(),'Display name updated')]");
+        
+        public IWebElement GearButton => driver.FindElement(GearButtonLocator);     
+        public IWebElement GoToSettingsButton => driver.FindElement(GoToSettingsButtonLocator);
+        public IWebElement AccountButton => driver.FindElement(AccountButtonLocator);
+        public IWebElement EditButton => driver.FindElement(EditButtonLocator);
+        public IWebElement SaveButton => driver.FindElement(SaveButtonLocator);
+        public IWebElement SignOutButton => driver.FindElement(SignOutButtonLocator);
+        public IWebElement DisplayedNameLabel => driver.FindElement(DisplayedNameLabelLocator);
+        public IWebElement NewNameInput => driver.FindElement(NewNameInputLocator);        
 
         public void ChangeName(string newName)
         {
-            WaitWhileNotVisibleByXpath(gearButtonXpath);
+            UtilityMethods.WaitUntilVisible(wait, GearButtonLocator);
             GearButton.Click();
-            WaitWhileNotVisibleByXpath(goToSettingsButtonXpath);
+            UtilityMethods.WaitUntilVisible(wait, GoToSettingsButtonLocator);
             GoToSettingsButton.Click();
-            WaitWhileNotVisibleByXpath(accountButtonXpath);
+            UtilityMethods.WaitUntilVisible(wait, AccountButtonLocator);
             AccountButton.Click();
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".link")));
+            UtilityMethods.WaitUntilVisible(wait, EditButtonLocator);
             EditButton.Click();
-            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("displayName")));
+            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             NewNameInput.SendKeys(newName);
             SaveButton.Click();
-            WaitWhileNotVisibleByXpath(newNameSuccessNotificationXpath);
+            UtilityMethods.WaitUntilVisible(wait, NewNameSuccessNotificationOutputLocator);
         }
 
         public string GetCurrentName()
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(displayedNameCss)));
-            string currentName = DisplayedName.Text;
+            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            var parsedName = DisplayedNameLabel.GetAttribute("title");
+            int index = parsedName.IndexOf("<");            
+            var currentName = parsedName.Substring(0, index).Trim();
             return currentName;
         }
 
         public void SignOut()
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(displayedNameCss)));
-            DisplayedName.Click();
-            WaitWhileNotVisibleByXpath(signOutButtonXpath);
+            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            DisplayedNameLabel.Click();
+            UtilityMethods.WaitUntilVisible(wait, SignOutButtonLocator);
             SignOutButton.Click();
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".button-large")));
-        }
-
-        private void WaitWhileNotVisibleByXpath(string expression)
-        {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(expression)));
+            UtilityMethods.WaitUntilVisible(wait, SignInButtonLocator);
         }
     }
 }
