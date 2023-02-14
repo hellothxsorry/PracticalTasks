@@ -36,7 +36,7 @@ namespace PracticalTasks
         [Fact]
         public void CanLocateBbcLogoTest()
         {
-            IWebElement bbcIcon = driver.FindElement(By.XPath("a[.='BBC Homepage']"));
+            IWebElement bbcIcon = driver.FindElement(By.XPath("//span[contains(text(),'Homepage')]/parent::span"));
 
             Assert.NotNull(bbcIcon);
             Assert.True(bbcIcon.Displayed);

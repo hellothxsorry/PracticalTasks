@@ -16,27 +16,28 @@ namespace PracticalTasks
         }
 
         [Fact]
-        public void CanLocateSearchFieldByXpathAxesTest()
+        public void LocateSearchFieldByXpathAxesTest()
         {
-            IWebElement searchFieldInput = driver.FindElement(By.XPath("//a[contains(@href,'search')]/child::span[text()='Search BBC']"));
+            IWebElement searchFieldInput = driver.FindElement(By.XPath("//a[contains(@href,'search')]/child::span[contains(text(),'Search BBC')]"));
 
             Assert.NotNull(searchFieldInput);
             Assert.True(searchFieldInput.Displayed);
         }
 
         [Fact]
-        public void CanLocateAllSportsButtonByXpathAxesTest()
+        public void LocateAllSportsButtonByXpathAxesTest()
         {
-            IWebElement allSportsButton = driver.FindElement(By.XPath("//div[@id='product-navigation-menu']/descendant::a[text()='More']"));
+            IWebElement allSportsButton = driver.FindElement(
+                By.XPath("//div[@id='product-navigation-menu']/descendant::a[contains(@href,'all-sports') and not(contains(@aria-controls,'more'))]"));
 
             Assert.NotNull(allSportsButton);
             Assert.True(allSportsButton.Displayed);
         }
 
         [Fact]
-        public void CanLocateBbcLogoByXpathAxesTest()
+        public void LocateBbcLogoByXpathAxesTest()
         {
-            IWebElement bbcLogo = driver.FindElement(By.XPath("//span[contains(text(),'Homepage')]/parent::span"));
+            IWebElement bbcLogo = driver.FindElement(By.XPath("//span[contains(@class,'LogoIconWrapper')]/parent::a"));
 
             Assert.NotNull(bbcLogo);
             Assert.True(bbcLogo.Displayed);
