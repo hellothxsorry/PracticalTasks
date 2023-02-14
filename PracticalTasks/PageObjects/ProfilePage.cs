@@ -14,10 +14,10 @@ namespace PracticalTasks.PageObjects
         private static By SignOutButtonLocator = By.CssSelector("[data-testid='userdropdown:button:logout']");
         private static By SignInButtonLocator = By.CssSelector("[type='submit']");
         private static By DisplayedNameLabelLocator = By.CssSelector("[data-testid='heading:userdropdown']");
-        private static By GoToSettingsButtonLocator = By.XPath("//a[.='Go to settings']");        
-        private static By EditButtonLocator = By.XPath("//button[contains(text(),'Edit')]");
-        private static By SaveButtonLocator = By.XPath("//button[contains(text(),'Save')]");        
-        private static By NewNameSuccessNotificationOutputLocator = By.XPath("//div[contains(text(),'Display name updated')]");
+        private static By NewNameSuccessNotificationOutputLocator = By.CssSelector("[role='alert']");
+        private static By GoToSettingsButtonLocator = By.XPath("//li[@class='dropdown-item']/child::a");        
+        private static By EditButtonLocator = By.XPath("//section[@id='account']/descendant::button[contains(@class,'link')]");
+        private static By SaveButtonLocator = By.XPath("//button[@type='submit']");       
         
         public IWebElement GearButton => driver.FindElement(GearButtonLocator);     
         public IWebElement GoToSettingsButton => driver.FindElement(GoToSettingsButtonLocator);
@@ -30,23 +30,23 @@ namespace PracticalTasks.PageObjects
 
         public void ChangeName(string newName)
         {
-            UtilityMethods.WaitUntilVisible(wait, GearButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, GearButtonLocator);
             GearButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, GoToSettingsButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, GoToSettingsButtonLocator);
             GoToSettingsButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, AccountButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, AccountButtonLocator);
             AccountButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, EditButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, EditButtonLocator);
             EditButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             NewNameInput.SendKeys(newName);
             SaveButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, NewNameSuccessNotificationOutputLocator);
+            WaitingUtils.WaitUntilVisible(wait, NewNameSuccessNotificationOutputLocator);
         }
 
         public string GetCurrentName()
         {
-            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             var parsedName = DisplayedNameLabel.GetAttribute("title");
             int index = parsedName.IndexOf("<");            
             var currentName = parsedName.Substring(0, index).Trim();
@@ -55,11 +55,11 @@ namespace PracticalTasks.PageObjects
 
         public void SignOut()
         {
-            UtilityMethods.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             DisplayedNameLabel.Click();
-            UtilityMethods.WaitUntilVisible(wait, SignOutButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, SignOutButtonLocator);
             SignOutButton.Click();
-            UtilityMethods.WaitUntilVisible(wait, SignInButtonLocator);
+            WaitingUtils.WaitUntilVisible(wait, SignInButtonLocator);
         }
     }
 }

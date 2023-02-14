@@ -16,8 +16,8 @@ namespace PracticalTasks.PageObjects
         private static By PasswordInputLocator = By.Id("password");
         private static By SignInButtonLocator = By.CssSelector("[type='submit']");
         private static By VerificationLoginOutputLocator = By.CssSelector("[data-testid='verification']");
-        private static By IncorrectCredentialsOutputLocator = By.XPath("//div[contains(text(),'Incorrect login')]");
-        private static By EmptyCredentialsOutputLocator = By.XPath("//div[@id='id-3']");
+        private static By IncorrectCredentialsOutputLocator = By.CssSelector("[role='alert']");
+        private static By EmptyCredentialsOutputLocator = By.XPath("//*[name()='svg']/following-sibling::span[not(@*)]");
 
         public IWebElement SignInButton => driver.FindElement(SignInButtonLocator);
         public IWebElement EmailAddressInput => driver.FindElement(EmailAddressInputLocator);
@@ -30,7 +30,7 @@ namespace PracticalTasks.PageObjects
 
         public void Login(string email, string password)
         {
-            UtilityMethods.WaitUntilVisible(wait, EmailAddressInputLocator);
+            WaitingUtils.WaitUntilVisible(wait, EmailAddressInputLocator);
             EmailAddressInput.SendKeys(email);
             PasswordInput.SendKeys(password);
             SignInButton.Click();

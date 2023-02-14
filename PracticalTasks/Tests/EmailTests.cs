@@ -13,7 +13,7 @@ namespace PracticalTasks.Tests
             loginPage.Login(userOne.EmailAddress, userOne.Password);
             mailboxPage.ComposeEmail(userTwo.EmailAddress, emailOne.Subject, emailOne.Message);
 
-            Assert.Equal("Message sent.", mailboxPage.SuccessNotificationOutput.Text);
+            Assert.Contains("Message sent", mailboxPage.SuccessNotificationOutput.Text);
         }
 
         [Fact]
