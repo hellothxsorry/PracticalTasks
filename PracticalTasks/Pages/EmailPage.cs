@@ -30,28 +30,28 @@ namespace PracticalTasks.Pages
 
         public EmailPage GenerateEmail()
         {
-            wait.Until(drv => RandomEmailGeneratorButton.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, RandomEmailGeneratorButtonLocator);
             RandomEmailGeneratorButton.Click();
             return this;
         }
 
         public string CopyGeneratedEmail()
         {
-            wait.Until(drv => GeneratedEmailOutput.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, GenerateEmailOutputLocator);
             string result = GeneratedEmailOutput.Text;
             return result;
         }
 
         public EmailPage CheckInbox()
         {
-            wait.Until(drv => CheckInboxButton.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, CheckInboxButtonLocator);
             CheckInboxButton.Click();
             return this;
         }
 
         public EmailPage RefreshInbox()
         {
-            wait.Until(drv => RefreshInboxButton.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, RefreshInboxButtonLocator);
             Thread.Sleep(1500);
             RefreshInboxButton.Click();
             return this;
@@ -60,7 +60,7 @@ namespace PracticalTasks.Pages
         public EmailPage ReadMostRecentEmail()
         {
             DriverExtensions.SwitchToFrame(driver, wait, InboxIframeLocator);
-            wait.Until(drv => FirstEmailButton.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, FirstEmailButtonLocator);
             FirstEmailButton.Click();
             driver.SwitchTo().DefaultContent();
             return this;
@@ -69,7 +69,7 @@ namespace PracticalTasks.Pages
         public string ParseCostFromEmailContent()
         {
             DriverExtensions.SwitchToFrame(driver, wait, MessageBodyIframeLocator);
-            wait.Until(drv => EstimatedCostOutput.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, EstimatedCostOutputLocator);
             string result = EstimatedCostOutput.Text;
             driver.SwitchTo().DefaultContent();
             return result;

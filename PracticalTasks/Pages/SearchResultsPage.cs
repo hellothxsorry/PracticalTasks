@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PracticalTasks.Utils;
 
 namespace PracticalTasks.Pages
 {
@@ -13,13 +14,13 @@ namespace PracticalTasks.Pages
 
         public void GoToSearchResultPage()
         {
-            wait.Until(drv => SearchResultLink.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, SearchResultLinkLocator);
             SearchResultLink.Click();
         }
 
         public string GetFirstSearchResult()
         {
-            wait.Until(drv => SearchResultLink.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, SearchResultLinkLocator);
             string result = SearchResultLink.Text;
             return result;
         }

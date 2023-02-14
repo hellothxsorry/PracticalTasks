@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PracticalTasks.Utils;
 
 namespace PracticalTasks.Pages
 {
@@ -15,7 +16,7 @@ namespace PracticalTasks.Pages
 
         public SearchResultsPage StartSearchFor(string request)
         {
-            wait.Until(drv => SearchInput.Displayed);
+            WaitingUtils.WaitUntilVisible(wait, SearchInputLocator);
             SearchInput.SendKeys(request);
             SearchInput.SendKeys(Keys.Enter);
             return new SearchResultsPage(driver, wait);
