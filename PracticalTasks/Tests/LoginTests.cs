@@ -13,9 +13,7 @@ namespace PracticalTasks.Tests
             loginPage.Login(userOne.EmailAddress, userOne.Password);
             wait.Until(drv => driver.Title.Contains(userOne.EmailAddress));
 
-            Assert.Contains(userOne.EmailAddress, driver.Title);
-
-            profilePage.SignOut();
+            Assert.Contains(userOne.EmailAddress, driver.Title);            
         }        
 
         [Fact]
@@ -30,7 +28,7 @@ namespace PracticalTasks.Tests
         [Fact]
         public void LoginWithEmptyCredentialsTest()
         {      
-            loginPage.Login("", "");
+            loginPage.Login(string.Empty, string.Empty);
             wait.Until(drv => loginPage.EmptyCredentialsOutput);
 
             Assert.Contains("This field is required", loginPage.EmptyCredentialsOutput.Text);

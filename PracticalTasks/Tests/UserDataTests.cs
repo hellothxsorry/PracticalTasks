@@ -24,12 +24,11 @@ namespace PracticalTasks.Tests
             profilePage.SignOut();
 
             loginPage.Login(userTwo.EmailAddress, userTwo.Password);
-            mailboxPage.ReplyToEmail(userOne.EmailAddress, emailTwo.Message);
+            mailboxPage.ReplyToEmail(emailTwo.Message);
             profilePage.SignOut();
 
-            loginPage.Login(userOne.EmailAddress, userOne.Password);            
-            var newName = mailboxPage.ReadRecentEmailGetMessage();
-            profilePage.ChangeName(newName);
+            loginPage.Login(userOne.EmailAddress, userOne.Password);   
+            profilePage.ChangeName(mailboxPage.ReadRecentEmailGetMessage());
 
             Assert.Equal(emailTwo.Message, profilePage.GetCurrentName());
         }

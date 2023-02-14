@@ -35,7 +35,7 @@ namespace PracticalTasks.PageObjects
 
         public void ComposeEmail(string to, string subject, string body)
         {
-            WaitingUtils.WaitUntilVisible(wait, NewMessageButtonLocator);            
+            WaitingUtil.WaitUntilVisible(wait, NewMessageButtonLocator);            
             NewMessageButton.Click();
             wait.Until(driver => ToInput);
             ToInput.SendKeys(to);
@@ -50,7 +50,7 @@ namespace PracticalTasks.PageObjects
 
         public string CheckUnreadEmailSenderAddress()
         {
-            WaitingUtils.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
             string senderEmailAddress = SenderEmailAddressOutput.GetAttribute("title");
             return senderEmailAddress;
         }
@@ -58,35 +58,35 @@ namespace PracticalTasks.PageObjects
         public string ReadRecentEmailGetMessage()
         {
             Thread.Sleep(2000);
-            WaitingUtils.WaitUntilVisible(wait, RefreshInboxButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, RefreshInboxButtonLocator);
             RefreshInboxButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
             SenderEmailAddressOutput.Click();
-            WaitingUtils.WaitUntilVisible(wait, IframeMessageOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, IframeMessageOutputLocator);
             DriverExtensions.SwitchToFrame(wait, driver, IframeMessageOutputLocator);
-            WaitingUtils.WaitUntilVisible(wait, MessageOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, MessageOutputLocator);
             string message = MessageContentOutput.Text;
             driver.SwitchTo().DefaultContent();
             return message;
         }
 
-        public void ReplyToEmail(string sender, string replyMessage)
+        public void ReplyToEmail(string replyMessage)
         {
-            WaitingUtils.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
             Thread.Sleep(2000);
             RefreshInboxButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SenderEmailAddressOutputLocator);
             SenderEmailAddressOutput.Click();
-            WaitingUtils.WaitUntilVisible(wait, ReplyButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, ReplyButtonLocator);
             ReplyButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, IframeMessageInputLocator);
+            WaitingUtil.WaitUntilVisible(wait, IframeMessageInputLocator);
             DriverExtensions.SwitchToFrame(wait, driver, IframeMessageInputLocator);
-            WaitingUtils.WaitUntilVisible(wait, MessageInputLocator);
+            WaitingUtil.WaitUntilVisible(wait, MessageInputLocator);
             MessageInput.Clear();
             MessageInput.SendKeys(replyMessage);
             driver.SwitchTo().DefaultContent();
             SendButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, SuccessfulNotificationOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SuccessfulNotificationOutputLocator);
         }        
     }
 }

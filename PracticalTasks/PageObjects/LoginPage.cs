@@ -30,7 +30,7 @@ namespace PracticalTasks.PageObjects
 
         public void Login(string email, string password)
         {
-            WaitingUtils.WaitUntilVisible(wait, EmailAddressInputLocator);
+            WaitingUtil.WaitUntilVisible(wait, EmailAddressInputLocator);
             EmailAddressInput.SendKeys(email);
             PasswordInput.SendKeys(password);
             SignInButton.Click();

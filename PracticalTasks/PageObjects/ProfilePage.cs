@@ -30,23 +30,23 @@ namespace PracticalTasks.PageObjects
 
         public void ChangeName(string newName)
         {
-            WaitingUtils.WaitUntilVisible(wait, GearButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, GearButtonLocator);
             GearButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, GoToSettingsButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, GoToSettingsButtonLocator);
             GoToSettingsButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, AccountButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, AccountButtonLocator);
             AccountButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, EditButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, EditButtonLocator);
             EditButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtil.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             NewNameInput.SendKeys(newName);
             SaveButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, NewNameSuccessNotificationOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, NewNameSuccessNotificationOutputLocator);
         }
 
         public string GetCurrentName()
         {
-            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtil.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             var parsedName = DisplayedNameLabel.GetAttribute("title");
             int index = parsedName.IndexOf("<");            
             var currentName = parsedName.Substring(0, index).Trim();
@@ -55,11 +55,11 @@ namespace PracticalTasks.PageObjects
 
         public void SignOut()
         {
-            WaitingUtils.WaitUntilVisible(wait, DisplayedNameLabelLocator);
+            WaitingUtil.WaitUntilVisible(wait, DisplayedNameLabelLocator);
             DisplayedNameLabel.Click();
-            WaitingUtils.WaitUntilVisible(wait, SignOutButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, SignOutButtonLocator);
             SignOutButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, SignInButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, SignInButtonLocator);
         }
     }
 }

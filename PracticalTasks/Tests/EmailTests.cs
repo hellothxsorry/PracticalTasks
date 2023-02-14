@@ -17,7 +17,7 @@ namespace PracticalTasks.Tests
         }
 
         [Fact]
-        public void VerifyUnreadMailTest()
+        public void UnreadMailTest()
         {
             loginPage.Login(userTwo.EmailAddress, userTwo.Password);
 
