@@ -1,15 +1,13 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.PageObjects;
 
 namespace PracticalTasks.Pages
 {
     public class SearchResultsPage: AbstractPage
     {
-        protected override string PageUrl { get { return "https://cloud.google.com/s/results?hl=en&q=google%20cloud%20pricing%20calculator&text=Google%20Cloud%20Pricing%20Calculator"; } }
+        private static By SearchResultLinkLocator = By.CssSelector("[data-ctorig='https://cloud.google.com/products/calculator']");
 
-        [FindsBy(How = How.XPath, Using = "//div[@class='gsc-expansionArea']//div[@class='gsc-thumbnail-inside']//b[.='Google Cloud Pricing Calculator']")]
-        private IWebElement SearchResultLink;
+        public IWebElement SearchResultLink => driver.FindElement(SearchResultLinkLocator);
 
         public SearchResultsPage(IWebDriver driver, WebDriverWait wait): base(driver, wait) { }
 

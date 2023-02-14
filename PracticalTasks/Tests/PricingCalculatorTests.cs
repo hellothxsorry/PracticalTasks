@@ -13,19 +13,17 @@ namespace PracticalTasks.Tests
         [Trait("Category", "Task")]
         public void ShouldCheckEstimatedMonthlyCostTests()
         {            
-            Steps.OpenCalculatorPageBySearchRequest(driver);
-            Steps.FillCalculatorForm(driver);
+            Steps.OpenCalculatorPageBySearchRequest(driver, wait);
+            Steps.FillCalculatorForm(driver, wait);
             Steps.OpenNewBrowserTab(driver);
-            string tempEmail = Steps.GenerateTempEmail(driver);
+            string tempEmail = Steps.GenerateTempEmail(driver, wait);
             Steps.SwitchBackToLastBrowserTab(driver, 0);
-            string estimatedCostFromCalculator = Steps.GetEstimatedCostFromCalculator(driver);
-            Steps.SendReportToGeneratedMail(driver, tempEmail);
+            string estimatedCostFromCalculator = Steps.GetEstimatedCostFromCalculator(driver, wait);
+            Steps.SendReportToGeneratedMail(driver, wait, tempEmail);
             Steps.SwitchBackToLastBrowserTab(driver, 1);
-            string estimatedCostFromEmail = Steps.GetEstimatedCostFromEmail(driver);
+            string estimatedCostFromEmail = Steps.GetEstimatedCostFromEmail(driver, wait);
 
             Assert.Contains(estimatedCostFromEmail, estimatedCostFromCalculator);
-
-            Steps.DisposeTest(driver);
         }
     }
 }

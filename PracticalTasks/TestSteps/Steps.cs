@@ -1,34 +1,38 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using PracticalTasks.Model;
 using PracticalTasks.Pages;
 using PracticalTasks.Services;
+using PracticalTasks.Utils;
 using System.Reflection;
 
 namespace PracticalTasks.TestSteps
 {
     public class Steps
     {
-        public void OpenCalculatorPageBySearchRequest(IWebDriver driver)
+        public void OpenCalculatorPageBySearchRequest(IWebDriver driver, WebDriverWait wait)
         {
-            MainPage mainPage = new MainPage(driver);
-            mainPage.OpenPage();
+            MainPage mainPage = new MainPage(driver, wait);
+            DriverExtensions.OpenPage(driver, mainPage.PageUrl);
             mainPage.StartSearchFor(TestDataReader.GetTestData("testdata.searchRequest"));
-            SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+            SearchResultsPage searchResultsPage = new SearchResultsPage(driver, wait);
             searchResultsPage.GoToSearchResultPage();
         }
 
-        public string CheckResultsAfterSearch(IWebDriver driver)
+        public string CheckResultsAfterSearch(IWebDriver driver, WebDriverWait wait)
         {
-            SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
-            searchResultsPage.OpenPage();
+            MainPage mainPage = new MainPage(driver, wait);
+            SearchResultsPage searchResultsPage = new SearchResultsPage(driver, wait);
+            DriverExtensions.OpenPage(driver, mainPage.PageUrl);
+            mainPage.StartSearchFor(TestDataReader.GetTestData("testdata.searchRequest"));
             string result = searchResultsPage.GetFirstSearchResult();
             return result;
         }
 
-        public void FillCalculatorForm(IWebDriver driver)
+        public void FillCalculatorForm(IWebDriver driver, WebDriverWait wait)
         {
             ServerInstance server = CreateServer.WithPresetFromProperty();
-            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
+            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver, wait);
             priceCalculatorPage.FillForm(server);
         }
 
@@ -37,10 +41,10 @@ namespace PracticalTasks.TestSteps
             driver.SwitchTo().NewWindow(WindowType.Tab);
         }
 
-        public string GenerateTempEmail(IWebDriver driver)
+        public string GenerateTempEmail(IWebDriver driver, WebDriverWait wait)
         {
-            EmailPage emailPage = new EmailPage(driver);
-            emailPage.OpenPage();
+            EmailPage emailPage = new EmailPage(driver, wait);
+            DriverExtensions.OpenPage(driver, emailPage.PageUrl);
             string result = emailPage.GenerateEmail()
                 .CopyGeneratedEmail();
             return result;
@@ -52,15 +56,15 @@ namespace PracticalTasks.TestSteps
             driver.SwitchTo().Window(tabs[tabNumber]);
         }
 
-        public void SendReportToGeneratedMail(IWebDriver driver, string email)
+        public void SendReportToGeneratedMail(IWebDriver driver, WebDriverWait wait, string email)
         {
-            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
+            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver, wait);
             priceCalculatorPage.SendEstimatedCostByEmail(email);
         }
 
-        public string GetEstimatedCostFromEmail(IWebDriver driver)
+        public string GetEstimatedCostFromEmail(IWebDriver driver, WebDriverWait wait)
         {
-            EmailPage emailPage = new EmailPage(driver);
+            EmailPage emailPage = new EmailPage(driver, wait);
             string result =  emailPage.CheckInbox()
                 .RefreshInbox()
                 .ReadMostRecentEmail()
@@ -68,34 +72,11 @@ namespace PracticalTasks.TestSteps
             return result;
         }
 
-        public string GetEstimatedCostFromCalculator(IWebDriver driver)
+        public string GetEstimatedCostFromCalculator(IWebDriver driver, WebDriverWait wait)
         {
-            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);            
+            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver, wait);            
             string result = priceCalculatorPage.GetEstimatedCost(); 
             return result;
-        }
-
-        public void DisposeTest(IWebDriver driver)
-        {
-            var screenshotName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-
-            var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var screenshotsDirectory = Path.Combine(directory, "Screenshots");
-            if (!Directory.Exists(screenshotsDirectory))
-            {
-                Directory.CreateDirectory(screenshotsDirectory);
-            }
-            var filePath = Path.Combine(screenshotsDirectory, $"{screenshotName}.png");
-
-            try
-            {
-                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error occured while taking screenshot: {e.Message}");
-            }
         }
     }
 }

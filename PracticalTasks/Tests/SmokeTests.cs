@@ -4,6 +4,7 @@ using PracticalTasks.Model;
 using PracticalTasks.Services;
 using PracticalTasks.Pages;
 using PracticalTasks.Driver;
+using PracticalTasks.Utils;
 
 namespace PracticalTasks.Tests
 {
@@ -16,25 +17,21 @@ namespace PracticalTasks.Tests
         [Trait("Category", "Smoke")]
         public void ShouldOpenResearchResultsTests()
         {            
-            Steps.OpenCalculatorPageBySearchRequest(driver);
+            Steps.OpenCalculatorPageBySearchRequest(driver, wait);
             Steps.OpenNewBrowserTab(driver);
 
-            var result = Steps.CheckResultsAfterSearch(driver);
+            var result = Steps.CheckResultsAfterSearch(driver, wait);
 
             Assert.Contains(result, TestDataReader.GetTestData("testdata.searchRequest"));
-
-            Steps.DisposeTest(driver);
         }
 
         [Fact]
         [Trait("Category", "Smoke")]
         public void ShouldGenerateTempEmailAddressTests()
         {
-            string result = Steps.GenerateTempEmail(driver);
+            string result = Steps.GenerateTempEmail(driver, wait);
 
             Assert.Contains("@yopmail.com", result);
-
-            Steps.DisposeTest(driver);
         }
 
         [Fact]
@@ -42,13 +39,11 @@ namespace PracticalTasks.Tests
         public void ShouldSelectElementFromDropdownListTests()
         {
             ServerInstance server = CreateServer.WithPresetFromProperty();
-            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver);
-            priceCalculatorPage.OpenPage();
+            PriceCalculatorPage priceCalculatorPage = new PriceCalculatorPage(driver, wait);
+            DriverExtensions.OpenPage(driver, priceCalculatorPage.PageUrl);
             string result = priceCalculatorPage.SelectElementFromDropdownList(server);
 
             Assert.Contains(TestDataReader.GetTestData("testdata.server.operatingSystem"), result);
-
-            Steps.DisposeTest(driver);
         }
     }
 }
