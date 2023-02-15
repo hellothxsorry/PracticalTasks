@@ -13,7 +13,7 @@ namespace PracticalTasks.Pages
         private static By InboxIframeLocator = By.Id("ifinbox");
         private static By MessageBodyIframeLocator = By.Id("ifmail");
         private static By GenerateEmailOutputLocator = By.Id("geny");
-        private static By CheckInboxButtonLocator = By.Id("refreshbut");
+        private static By CheckInboxButtonLocator = By.XPath("//button[contains(@onClick,'egengo')]/child::span[not(@*)]");
         private static By RefreshInboxButtonLocator = By.Id("refresh");
         private static By FirstEmailButtonLocator = By.XPath("//body[contains(@class,'bodyinbox')]/descendant::button[@class='lm']");
         private static By RandomEmailGeneratorButtonLocator = By.XPath("//div[@id='listeliens']/child::a[contains(@href,'generator')]");

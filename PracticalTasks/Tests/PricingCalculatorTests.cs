@@ -10,7 +10,7 @@ namespace PracticalTasks.Tests
         public PricingCalculatorTests(WebDriverFixture webDriverFixture) : base(webDriverFixture) { }
 
         [Fact]
-        [Trait("Category", "Task")]
+        [Trait("Category", "AllTests")]
         public void ShouldCheckEstimatedMonthlyCostTests()
         {            
             Steps.OpenCalculatorPageBySearchRequest(driver, wait);

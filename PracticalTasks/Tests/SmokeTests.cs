@@ -15,6 +15,7 @@ namespace PracticalTasks.Tests
 
         [Fact]
         [Trait("Category", "Smoke")]
+        [Trait("Category", "AllTests")]
         public void ShouldOpenResearchResultsTests()
         {            
             Steps.OpenCalculatorPageBySearchRequest(driver, wait);
@@ -27,6 +28,7 @@ namespace PracticalTasks.Tests
 
         [Fact]
         [Trait("Category", "Smoke")]
+        [Trait("Category", "AllTests")]
         public void ShouldGenerateTempEmailAddressTests()
         {
             string result = Steps.GenerateTempEmail(driver, wait);
@@ -35,7 +37,7 @@ namespace PracticalTasks.Tests
         }
 
         [Fact]
-        [Trait("Category", "Smoke")]
+        [Trait("Category", "AllTests")]
         public void ShouldSelectElementFromDropdownListTests()
         {
             ServerInstance server = CreateServer.WithPresetFromProperty();
