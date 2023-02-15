@@ -38,3 +38,15 @@ Hardcore task:**
 6. If the test fails, a screenshot with the date and time is taken.
 7. The framework should include an option for running with Jenkins and browser parameterization, test suite, environment.
 8. Test results should be displayed on the job chart, and the screenshots should be archived as artifacts.
+---
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/50228202/217504592-940f88ec-a6a6-4c7e-be01-39bf57e75d25.png">
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/50228202/217504720-73c00fbd-271c-4a5c-b9f1-8cc02379147c.png">
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/50228202/217524241-126aa4d2-69cf-4c64-ae83-e931febd4b6d.png">
+</p>
