@@ -4,7 +4,7 @@ using SeleniumExtras.WaitHelpers;
 
 namespace PracticalTasks.Utils
 {
-    public static class WaitingUtils
+    public static class WaitingUtil
     {
         public static void WaitUntilVisible(WebDriverWait wait, By locator)
         {

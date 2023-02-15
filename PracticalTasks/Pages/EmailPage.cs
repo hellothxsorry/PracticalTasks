@@ -30,28 +30,28 @@ namespace PracticalTasks.Pages
 
         public EmailPage GenerateEmail()
         {
-            WaitingUtils.WaitUntilVisible(wait, RandomEmailGeneratorButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, RandomEmailGeneratorButtonLocator);
             RandomEmailGeneratorButton.Click();
             return this;
         }
 
         public string CopyGeneratedEmail()
         {
-            WaitingUtils.WaitUntilVisible(wait, GenerateEmailOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, GenerateEmailOutputLocator);
             string result = GeneratedEmailOutput.Text;
             return result;
         }
 
         public EmailPage CheckInbox()
         {
-            WaitingUtils.WaitUntilVisible(wait, CheckInboxButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, CheckInboxButtonLocator);
             CheckInboxButton.Click();
             return this;
         }
 
         public EmailPage RefreshInbox()
         {
-            WaitingUtils.WaitUntilVisible(wait, RefreshInboxButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, RefreshInboxButtonLocator);
             Thread.Sleep(1500);
             RefreshInboxButton.Click();
             return this;
@@ -60,7 +60,7 @@ namespace PracticalTasks.Pages
         public EmailPage ReadMostRecentEmail()
         {
             DriverExtensions.SwitchToFrame(driver, wait, InboxIframeLocator);
-            WaitingUtils.WaitUntilVisible(wait, FirstEmailButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, FirstEmailButtonLocator);
             FirstEmailButton.Click();
             driver.SwitchTo().DefaultContent();
             return this;
@@ -69,7 +69,7 @@ namespace PracticalTasks.Pages
         public string ParseCostFromEmailContent()
         {
             DriverExtensions.SwitchToFrame(driver, wait, MessageBodyIframeLocator);
-            WaitingUtils.WaitUntilVisible(wait, EstimatedCostOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, EstimatedCostOutputLocator);
             string result = EstimatedCostOutput.Text;
             driver.SwitchTo().DefaultContent();
             return result;

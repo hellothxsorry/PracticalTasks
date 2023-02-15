@@ -14,13 +14,13 @@ namespace PracticalTasks.Pages
 
         public void GoToSearchResultPage()
         {
-            WaitingUtils.WaitUntilVisible(wait, SearchResultLinkLocator);
+            WaitingUtil.WaitUntilVisible(wait, SearchResultLinkLocator);
             SearchResultLink.Click();
         }
 
         public string GetFirstSearchResult()
         {
-            WaitingUtils.WaitUntilVisible(wait, SearchResultLinkLocator);
+            WaitingUtil.WaitUntilVisible(wait, SearchResultLinkLocator);
             string result = SearchResultLink.Text;
             return result;
         }

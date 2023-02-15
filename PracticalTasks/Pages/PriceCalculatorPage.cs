@@ -51,30 +51,29 @@ namespace PracticalTasks.Pages
             DriverExtensions.SwitchToFrame(driver, wait, FormIframeLocator);
             NumberOfInstancesInput.SendKeys(server.NumberOfInstances);
             OperatingSystemDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.OperatingSystem));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.OperatingSystem));
             ChooseItemFromDropdownList(server.OperatingSystem);
             SeriesDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.InstanceSeries));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.InstanceSeries));
             ChooseItemFromDropdownList(server.InstanceSeries);
             MachineTypeDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.InstanceType));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.InstanceType));
             ChooseItemFromDropdownList(server.InstanceType);
             AddGpusCheckbox.Click();
             GpuTypeDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.GpuType));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.GpuType));
             ChooseItemFromDropdownList(server.GpuType);
             NumberOfGpusDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetGpuNumberLocatorFromDropdownList(server.NumberOfGpu));
+            WaitingUtil.WaitUntilVisible(wait, GetGpuNumberLocatorFromDropdownList(server.NumberOfGpu));
             ChooseGpuNumberFromDropdownList(server.NumberOfGpu);
             LocalSsdDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.LocalSsd));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.LocalSsd));
             ChooseItemFromDropdownList(server.LocalSsd);
             DatacenterLocationDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetLocationLocatorFromDropdownList(server.DatacenterLocation));
-            Thread.Sleep(50);
+            WaitingUtil.WaitUntilVisible(wait, GetLocationLocatorFromDropdownList(server.DatacenterLocation));
             ChooseLocationFromDropdownList(server.DatacenterLocation);
             CommittedUsageDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetCommittedUsageLocatorFromDropdownList(server.CommittedUsage));
+            WaitingUtil.WaitUntilVisible(wait, GetCommittedUsageLocatorFromDropdownList(server.CommittedUsage));
             ChooseCommittedUsageFromDropdownList(server.CommittedUsage);
             AddToEstimateButton.Click();
             return new PriceCalculatorPage(driver, wait);
@@ -84,9 +83,9 @@ namespace PracticalTasks.Pages
         {
             DriverExtensions.SwitchToFrame(driver, wait, PricingCalculatorIframeLocator);
             DriverExtensions.SwitchToFrame(driver, wait, FormIframeLocator);
-            WaitingUtils.WaitUntilVisible(wait, OperatingSystemDropdownLocator);
+            WaitingUtil.WaitUntilVisible(wait, OperatingSystemDropdownLocator);
             OperatingSystemDropdown.Click();
-            WaitingUtils.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.OperatingSystem));
+            WaitingUtil.WaitUntilVisible(wait, GetItemLocatorFromDropdownList(server.OperatingSystem));
 
             string result = OperatingSystemDropdown.Text;
             return result;
@@ -94,9 +93,9 @@ namespace PracticalTasks.Pages
 
         public PriceCalculatorPage SendEstimatedCostByEmail(string email)
         {
-            WaitingUtils.WaitUntilVisible(wait, SendTotalCostByEmailButtonLocator);
+            WaitingUtil.WaitUntilVisible(wait, SendTotalCostByEmailButtonLocator);
             SendTotalCostByEmailButton.Click();
-            WaitingUtils.WaitUntilVisible(wait, EmailAddressInputLocator);
+            WaitingUtil.WaitUntilVisible(wait, EmailAddressInputLocator);
             EmailAddressInput.SendKeys(email);
             SendEmailButton.Click();
             return this;
@@ -106,7 +105,7 @@ namespace PracticalTasks.Pages
         {
             DriverExtensions.SwitchToFrame(driver, wait, PricingCalculatorIframeLocator);
             DriverExtensions.SwitchToFrame(driver, wait, FormIframeLocator);
-            WaitingUtils.WaitUntilVisible(wait, TotalEstimatedCostOutputLocator);
+            WaitingUtil.WaitUntilVisible(wait, TotalEstimatedCostOutputLocator);
             string result = TotalEstimatedCostOutput.Text;
             return result;
         }
@@ -133,32 +132,33 @@ namespace PracticalTasks.Pages
         {
             var itemElement = driver.FindElement(By.XPath($"//md-option[contains(.,'{item}') and contains(@ng-repeat,'gpuType')]"));
             itemElement.Click();
-        }
+        }               
 
-        private void ChooseLocationFromDropdownList(string option)
+        private By GetLocationLocatorFromDropdownList(string item)
         {
-            IWebElement element = driver.FindElement(
-                By.XPath($"//div[@class='md-select-menu-container cpc-region-select md-active md-clickable']//md-option[contains(.,'{option}')]"));
-            element.Click();
-        }
-
-        private By GetLocationLocatorFromDropdownList(string option)
-        {
-            var locator = By.XPath($"//div[@class='md-select-menu-container cpc-region-select md-active md-clickable']//md-option[contains(.,'{option}')]");
+            var locator = By.XPath(
+                $"//div[contains(@class,'cpc-region-select')]/descendant::md-option[contains(.,'{item}') and contains(@ng-repeat,'computeServer')]");
             return locator;
         }
 
-        private void ChooseCommittedUsageFromDropdownList(string option)
+        private void ChooseLocationFromDropdownList(string item)
         {
             IWebElement element = driver.FindElement(
-                By.XPath($"//div[@class='md-select-menu-container md-active md-clickable']//md-option[.='{option}']"));
+                By.XPath($"//div[contains(@class,'cpc-region-select')]/descendant::md-option[contains(.,'{item}') and contains(@ng-repeat,'computeServer')]"));
             element.Click();
+        }        
+
+        private By GetCommittedUsageLocatorFromDropdownList(string item)
+        {
+            var locator = By.XPath($"//div[contains(@class,'md-active')]/descendant::md-option[.='{item}']");
+            return locator;
         }
 
-        private By GetCommittedUsageLocatorFromDropdownList(string option)
+        private void ChooseCommittedUsageFromDropdownList(string item)
         {
-            var locator = By.XPath($"//div[@class='md-select-menu-container md-active md-clickable']//md-option[.='{option}']");
-            return locator;
+            IWebElement element = driver.FindElement(
+                By.XPath($"//div[contains(@class,'md-active')]/descendant::md-option[.='{item}']"));
+            element.Click();
         }
     }
 }

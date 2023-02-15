@@ -16,7 +16,7 @@ namespace PracticalTasks.Pages
 
         public SearchResultsPage StartSearchFor(string request)
         {
-            WaitingUtils.WaitUntilVisible(wait, SearchInputLocator);
+            WaitingUtil.WaitUntilVisible(wait, SearchInputLocator);
             SearchInput.SendKeys(request);
             SearchInput.SendKeys(Keys.Enter);
             return new SearchResultsPage(driver, wait);
