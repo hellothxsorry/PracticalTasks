@@ -25,6 +25,4 @@ Create a program that receives the following information about the car from the 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/50228202/223002890-1d6a6196-7cf4-4c09-a7e0-32c476eeead2.png>
 </p>
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/50228202/223002947-a2b33dda-d985-4d87-8c4b-77e7a698c180.png">
-</p>
+
