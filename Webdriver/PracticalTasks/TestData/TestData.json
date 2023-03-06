@@ -1,0 +1,15 @@
+[
+  {
+    "user.emailAddressOne": "testmailjohn@protonmail.com",
+    "user.emailAddressTwo": "testmailkate@protonmail.com",
+    "user.wrongEmailAddress": "incorrect@email.com",
+    "user.password": "Testpassword",
+    "user.wrongPassword": "incorrectpassword",
+    "email.subjectOne": "Test email",
+    "email.subjectTwo": "Change nickname!",
+    "email.bodyOne": "Hi! This is a test email.",
+    "email.bodyTwo": "Rene",
+    "wait": "60",
+    "page.url": "https://account.proton.me/login"
+  }
+]

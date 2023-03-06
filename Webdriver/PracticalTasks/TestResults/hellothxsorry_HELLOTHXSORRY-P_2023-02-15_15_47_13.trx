@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8aa0cc6b-3766-4b0e-a896-b5fb04c598b1" name="hellothxsorry@HELLOTHXSORRY-P 2023-02-15 15:47:13" runUser="HELLOTHXSORRY-P\hellothxsorry" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2023-02-15T15:47:13.0586584+05:00" queuing="2023-02-15T15:47:13.0586589+05:00" start="2023-02-15T15:47:03.6047300+05:00" finish="2023-02-15T15:47:41.6009552+05:00" />
+  <TestSettings name="default" id="a3ba52e9-0d93-477e-bed2-82373dfbc077">
+    <Deployment runDeploymentRoot="hellothxsorry_HELLOTHXSORRY-P_2023-02-15_15_47_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ce3f4532-c967-4ca6-8cee-0a0355a46484" testId="ebe593ef-1c3f-1a7e-c419-7e6ea0f6c7f4" testName="PracticalTasks.Tests.PricingCalculatorTests.ShouldCheckEstimatedMonthlyCostTests" computerName="HELLOTHXSORRY-P" duration="00:00:34.7255441" startTime="2023-02-15T15:47:41.0928307+05:00" endTime="2023-02-15T15:47:41.0928309+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce3f4532-c967-4ca6-8cee-0a0355a46484" />
+    <UnitTestResult executionId="761c28d0-ad58-4a95-8a81-5a1eb9b553c7" testId="2a2c08e5-c4f2-cbb0-9736-d08a108a99a0" testName="PracticalTasks.Tests.SmokeTests.ShouldGenerateTempEmailAddressTests" computerName="HELLOTHXSORRY-P" duration="00:00:04.8662222" startTime="2023-02-15T15:47:32.8847486+05:00" endTime="2023-02-15T15:47:32.8847494+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="761c28d0-ad58-4a95-8a81-5a1eb9b553c7" />
+    <UnitTestResult executionId="56a318b0-820a-4950-9562-62a29ce4ea4a" testId="9ab80a79-7307-5610-e79c-a3475ba6bbf1" testName="PracticalTasks.Tests.SmokeTests.ShouldOpenResearchResultsTests" computerName="HELLOTHXSORRY-P" duration="00:00:15.0232220" startTime="2023-02-15T15:47:28.0184326+05:00" endTime="2023-02-15T15:47:28.0184329+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="56a318b0-820a-4950-9562-62a29ce4ea4a" />
+    <UnitTestResult executionId="3b1cc65a-0668-4b5e-8382-68383e82b65e" testId="0f49ad4e-b6d4-f8bb-939e-1a9bca8780be" testName="PracticalTasks.Tests.SmokeTests.ShouldSelectElementFromDropdownListTests" computerName="HELLOTHXSORRY-P" duration="00:00:06.6239874" startTime="2023-02-15T15:47:12.9958002+05:00" endTime="2023-02-15T15:47:12.9958327+05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b1cc65a-0668-4b5e-8382-68383e82b65e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PracticalTasks.Tests.PricingCalculatorTests.ShouldCheckEstimatedMonthlyCostTests" storage="c:\users\hellothxsorry\source\repos\practicaltasks\practicaltasks\bin\debug\net6.0\practicaltasks.dll" id="ebe593ef-1c3f-1a7e-c419-7e6ea0f6c7f4">
+      <Execution id="ce3f4532-c967-4ca6-8cee-0a0355a46484" />
+      <TestMethod codeBase="C:\Users\hellothxsorry\source\repos\PracticalTasks\PracticalTasks\bin\Debug\net6.0\PracticalTasks.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PracticalTasks.Tests.PricingCalculatorTests" name="ShouldCheckEstimatedMonthlyCostTests" />
+    </UnitTest>
+    <UnitTest name="PracticalTasks.Tests.SmokeTests.ShouldGenerateTempEmailAddressTests" storage="c:\users\hellothxsorry\source\repos\practicaltasks\practicaltasks\bin\debug\net6.0\practicaltasks.dll" id="2a2c08e5-c4f2-cbb0-9736-d08a108a99a0">
+      <Execution id="761c28d0-ad58-4a95-8a81-5a1eb9b553c7" />
+      <TestMethod codeBase="C:\Users\hellothxsorry\source\repos\PracticalTasks\PracticalTasks\bin\Debug\net6.0\PracticalTasks.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PracticalTasks.Tests.SmokeTests" name="ShouldGenerateTempEmailAddressTests" />
+    </UnitTest>
+    <UnitTest name="PracticalTasks.Tests.SmokeTests.ShouldOpenResearchResultsTests" storage="c:\users\hellothxsorry\source\repos\practicaltasks\practicaltasks\bin\debug\net6.0\practicaltasks.dll" id="9ab80a79-7307-5610-e79c-a3475ba6bbf1">
+      <Execution id="56a318b0-820a-4950-9562-62a29ce4ea4a" />
+      <TestMethod codeBase="C:\Users\hellothxsorry\source\repos\PracticalTasks\PracticalTasks\bin\Debug\net6.0\PracticalTasks.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PracticalTasks.Tests.SmokeTests" name="ShouldOpenResearchResultsTests" />
+    </UnitTest>
+    <UnitTest name="PracticalTasks.Tests.SmokeTests.ShouldSelectElementFromDropdownListTests" storage="c:\users\hellothxsorry\source\repos\practicaltasks\practicaltasks\bin\debug\net6.0\practicaltasks.dll" id="0f49ad4e-b6d4-f8bb-939e-1a9bca8780be">
+      <Execution id="3b1cc65a-0668-4b5e-8382-68383e82b65e" />
+      <TestMethod codeBase="C:\Users\hellothxsorry\source\repos\PracticalTasks\PracticalTasks\bin\Debug\net6.0\PracticalTasks.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="PracticalTasks.Tests.SmokeTests" name="ShouldSelectElementFromDropdownListTests" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ebe593ef-1c3f-1a7e-c419-7e6ea0f6c7f4" executionId="ce3f4532-c967-4ca6-8cee-0a0355a46484" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2a2c08e5-c4f2-cbb0-9736-d08a108a99a0" executionId="761c28d0-ad58-4a95-8a81-5a1eb9b553c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ab80a79-7307-5610-e79c-a3475ba6bbf1" executionId="56a318b0-820a-4950-9562-62a29ce4ea4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f49ad4e-b6d4-f8bb-939e-1a9bca8780be" executionId="3b1cc65a-0668-4b5e-8382-68383e82b65e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 6.0.7)&#xD;
+[xUnit.net 00:00:00.72]   Discovering: PracticalTasks&#xD;
+[xUnit.net 00:00:00.78]   Discovered:  PracticalTasks&#xD;
+[xUnit.net 00:00:00.79]   Starting:    PracticalTasks&#xD;
+[xUnit.net 00:00:37.10]   Finished:    PracticalTasks&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
